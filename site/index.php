@@ -188,4 +188,5 @@
 		<a href="http://www.porktrack.com/faq.php">FAQ</a> &#8226 
 		<a href="http://www.twitter.com/porktrack">follow @porktrack</a> &#8226 
 		<a href="http://www.twitter.com/literallyelvis">created by</a>
+		<a href="https://github.com/LiterallyElvis/Porktrack"><img style="position: absolute; bottom: 0; right: 0; border: 0;" src="images/forkme.png" alt="Fork me on GitHub" data-canonical-src="images/forkme.png"></a>
 	</div>
