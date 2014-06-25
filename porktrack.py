@@ -6,7 +6,7 @@ from datetime import date
 ndchars = ['[', ']', '"', '\n', 'Issue Date', 'Artist(s)', 'Reference']
 months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
           'August', 'September', 'October', 'November', 'December']
-currentyear = date.today().year          #establishes current year for later use
+currentyear = date.today().year  #establishes current year for later use
 nfyears = [1965, 1989, 2000, 2001, currentyear]
 otherYears = [1963, 1971, 1976]
 other_words = [' and ', ' with ']
@@ -15,21 +15,25 @@ step = 0
 song_list = []
 artist = "Artist: "
 
-class Song:                                       #handy song object to place in a list of song objects
+class Song:        #handy song object to place in a list of song objects
     def __init__(self, date, artist, title, video):
         self.date = date
         self.artist = artist
         self.title = title
         self.vide = video
     def __repr__(self):
-        base = '("' + self.date + '", "' + self.artist + '", "' + self.title + '", "' + self.video + '0"),\n'
+        base = ('("' + self.date + '", "' + self.artist + '", "' 
+					+ self.title + '", "' + self.video + '"),\n')
         return base
 
 newSong = Song("", "", "" ,"")
 
 def isdate(string):
-    if any(thing in string for thing in months):  #I love this statement so much.
-        return True
+    if any(thing in string for thing in months): #I <3 this line so much.
+        if len(string) <= 10:
+            return True
+        else:
+            return False
     else:
         return False
 
@@ -44,12 +48,13 @@ def isNumber(string):
 
 def retrieveVideo(artist, title):
     search = artist + "+" + title
+    search = search.replace('\n', '')
     search = search.replace(" ", "+")
-    search = search.replace("&", "and")
+    search = search.replace("&", "and")    
     yt_url = 'https://www.youtube.com/results?search_query=' + search
-    yt_retrieve = urlopen(yt_url)                  #retrieves web page
-    yt_read = yt_retrieve.read()                   #turns retrieved page into something we can use
-    yt_html = yt_read.decode('utf-8')              #makes retrieved page even more usable
+    yt_retrieve = urlopen(yt_url)	   #retrieves web page	
+    yt_read = yt_retrieve.read()       #reads retrieved page
+    yt_html = yt_read.decode('utf-8')  #makes retrieved page more usable
     yt_beg = yt_html.find('<ol id="search-results"') + 23
     yt_beg = yt_html.find('a href="', yt_beg) + 8
     yt_end = yt_html.find('" class="', yt_beg)
@@ -78,12 +83,11 @@ def monthReplace(date):
 def getPage(year):
 	#let's get some data
 	global url_year
-	url = 'http://en.wikipedia.org/wiki/List_of_number-one_country_hits_of_' + str(year) + '_(U.S.)'
-	#url = 'http://en.wikipedia.org/wiki/List_of_Billboard_Hot_100_number-one_singles_of_' + str(year)
-	retrieve = urlopen(url)                  #retrieves web page
-	read = retrieve.read()                   #turns retrieved page into something we can use
-	html = read.decode('utf-8')              #makes retrieved page even more usable
-	url_year = year     #deciphers subject year from url
+	url = 'http://en.wikipedia.org/wiki/List_of_Billboard_Hot_100_number-one_singles_of_' + str(year)
+	retrieve = urlopen(url)       #retrieves web page
+	read = retrieve.read()        #reads retrieved page
+	html = read.decode('utf-8')   #makes retrieved page more usable
+	url_year = year               #deciphers subject year from url
 	
 	#let's manipulate some data
 	bad = year in nfyears
@@ -95,7 +99,8 @@ def getPage(year):
 	source = html[beg:end]
 	return source
 
-#modified from the HTMLParser page: https://docs.python.org/2/library/htmlparser.html#example-html-parser-application
+#modified from the HTMLParser page: 
+		#https://docs.python.org/2/library/htmlparser.html
 class HTMLParser(HTMLParser):
     def handle_data(self, data):
         if data in ndchars:
@@ -115,35 +120,43 @@ class HTMLParser(HTMLParser):
                 newSong = Song("", "", "", "")
                 month = data[:len(data)-2]
                 month = monthReplace(month)
-                day = int(data[len(data)-2:])
+                try:
+                    day = int(data[len(data)-2:])
+                except ValueError:
+                    print("Data: " + data + '\n')
                 if day < 10:
                     day = "0" + str(day)
                 date = str(url_year) + " " + month + " " + str(day)
                 date = date.replace(" ", "-")
                 date = date.replace("--", "-")
-                prior_line = '\n' + date                     #final date
+                prior_line = '\n' + date          #final date
             else:
                 if isNumber(data):
                     data = None
-                elif step == 1:                              #definitely a song
+                elif step == 1:                   #definitely a song
                     if previous == "date":
                         newSong.date = prior_line[1:]
-                    prior_line = data                        #final song
+                    prior_line = data             #final song
                     prior_line = prior_line.replace("'", "\'")
                     newSong.title = prior_line
                     step = 2
-                elif step == 2:                              #definitely an artist
+                elif step == 2:                   #definitely an artist
                     artist += data
                     prior_line = artist
 
 #instantiate the parser and feed it some HTML
-parser = HTMLParser()                           #these two lines will be instrumental in getting this to work 
-page = getPage(1945)
-parser.feed(page)                             #across multiple years when I've had more sleep.
+parser = HTMLParser()                           
+for x in range(2014, 2015):
+	page = getPage(x)
+	try:
+	    parser.feed(page)
+	except UnicodeEncodeError:
+		print(x)
 song_list.append(newSong)
 song_list[len(song_list) - 1].artist = prior_line[8:]
-#Opening SQL instruction: INSERT INTO `tracks`(`date`, `artist`, `track`, `youtube`, `songofyear`) VALUES 
+#Opening SQL instruction: 
+	#INSERT INTO `table` (`date`, `artist`, `track`, `youtube`) VALUES 
 try:
     print(*song_list, sep='')
 except AttributeError:
-    None                       #necessary because final Song object won't have a video, and stop the script.
+    None      #necessary because final Song object won't have a video.
