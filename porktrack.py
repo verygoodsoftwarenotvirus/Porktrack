@@ -10,11 +10,8 @@ currentyear = date.today().year          #establishes current year for later use
 nfyears = [1965, 1989, 2000, 2001, currentyear]
 otherYears = [1963, 1971, 1976]
 other_words = [' and ', ' with ']
-
-previous = ""
-prior_line = ""
+url_year, previous, prior_line = "", "", ""
 step = 0
-song_id = 0
 song_list = []
 artist = "Artist: "
 
@@ -25,7 +22,7 @@ class Song:                                       #handy song object to place in
         self.title = title
         self.vide = video
     def __repr__(self):
-        base = '("' + self.date + '", "' + self.artist + '", "' + self.title + '", "' + self.video + '0")'
+        base = '("' + self.date + '", "' + self.artist + '", "' + self.title + '", "' + self.video + '0"),\n'
         return base
 
 newSong = Song("", "", "" ,"")
@@ -78,22 +75,25 @@ def monthReplace(date):
     date = date.replace("December"  ,  "12")
     return date
 
-#let's get some data
-year = 1986
-url = 'http://en.wikipedia.org/wiki/List_of_Billboard_Hot_100_number-one_singles_of_' + str(year)
-retrieve = urlopen(url)                  #retrieves web page
-read = retrieve.read()                   #turns retrieved page into something we can use
-html = read.decode('utf-8')              #makes retrieved page even more usable
-url_year = url[len(url) - 4:len(url)]     #deciphers subject year from url
-
-#let's manipulate some data
-bad = int(url_year) in nfyears
-beg = html.find('wikitable"') + 11
-if not bad:
-    beg = html.find('wikitable">', beg) + 11
-beg = html.find('</tr>', beg) + 5
-end = html.find('</table>', beg)
-source = html[beg:end]
+def getPage(year):
+	#let's get some data
+	global url_year
+	url = 'http://en.wikipedia.org/wiki/List_of_number-one_country_hits_of_' + str(year) + '_(U.S.)'
+	#url = 'http://en.wikipedia.org/wiki/List_of_Billboard_Hot_100_number-one_singles_of_' + str(year)
+	retrieve = urlopen(url)                  #retrieves web page
+	read = retrieve.read()                   #turns retrieved page into something we can use
+	html = read.decode('utf-8')              #makes retrieved page even more usable
+	url_year = year     #deciphers subject year from url
+	
+	#let's manipulate some data
+	bad = year in nfyears
+	beg = html.find('wikitable"') + 11
+	if not bad:
+		beg = html.find('wikitable">', beg) + 11
+	beg = html.find('</tr>', beg) + 5
+	end = html.find('</table>', beg)
+	source = html[beg:end]
+	return source
 
 #modified from the HTMLParser page: https://docs.python.org/2/library/htmlparser.html#example-html-parser-application
 class HTMLParser(HTMLParser):
@@ -118,7 +118,7 @@ class HTMLParser(HTMLParser):
                 day = int(data[len(data)-2:])
                 if day < 10:
                     day = "0" + str(day)
-                date = url_year + " " + month + " " + str(day)
+                date = str(url_year) + " " + month + " " + str(day)
                 date = date.replace(" ", "-")
                 date = date.replace("--", "-")
                 prior_line = '\n' + date                     #final date
@@ -138,12 +138,12 @@ class HTMLParser(HTMLParser):
 
 #instantiate the parser and feed it some HTML
 parser = HTMLParser()                           #these two lines will be instrumental in getting this to work 
-parser.feed(source)                             #across multiple years when I've had more sleep.
+page = getPage(1945)
+parser.feed(page)                             #across multiple years when I've had more sleep.
 song_list.append(newSong)
 song_list[len(song_list) - 1].artist = prior_line[8:]
-print("\nINSERT INTO `tracks`(`date`, `artist`, `track`, `songofyear`) VALUES \n") #Opening SQL instruction
+#Opening SQL instruction: INSERT INTO `tracks`(`date`, `artist`, `track`, `youtube`, `songofyear`) VALUES 
 try:
-    print(*song_list, sep=', ')
+    print(*song_list, sep='')
 except AttributeError:
     None                       #necessary because final Song object won't have a video, and stop the script.
-print(";")
