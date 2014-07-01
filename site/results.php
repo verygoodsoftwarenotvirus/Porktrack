@@ -10,22 +10,17 @@
 	$user = $settings['user'];
 	$pass = $settings['pass'];
 	$db = $settings['db'];
-	$con = mysqli_connect($host, $user, $pass, $db) or die ("Error: ". mysqli_error($con));
-	
-	// Important variables.
+	$con = mysqli_connect($host, $user, $pass, $db) or die ("Error: ". mysqli_error($con));	
 	$current_url = "http://www.porktrack.com" . $_SERVER['REQUEST_URI'];
-	$ip = $_SERVER['REMOTE_ADDR'];	
-	date_default_timezone_set('America/Chicago');
-	$datetime = date('Y-m-d H:i:s');	
-	if (isset($_SERVER['HTTP_REFERER'])) {	$referer = $_SERVER['HTTP_REFERER']; } else	{ $referer = "none"; } 
 	
 	//retrieve user input from previous page
 	$modifier = "+/-";
 	$month = $_GET["month"];
 	$year = $_GET["year"];
 	$day = $_GET["day"];	
-	//$table = $_GET["list"];	this will work one day, I promise.
-	$table = "track"; 
+	if(isset($_GET["list"]))
+    { $table = $_GET["list"]; }
+    else{ $table = "track";}
 
 	$birthday = $year . "-" . $month . "-" . $day; 
     $offsetnum = $_GET["offset"]; 
@@ -34,17 +29,14 @@
 	if( $offsettype == "early" ) { $modifier = "-";	 } else { $modifier = "+"; }
     $offset = $modifier . $offsetnum . ' ' . $offsetsize; 
 	
-	//prevents user fuckery:	
+	//attempts to prevent user tomfoolery:	
 	if (time() < strtotime($birthday))
-	{
-		$birthday = time();
-	}
+	{ $birthday = time(); }
 	
     //shamelessly borrowed from http://stackoverflow.com/questions/7029669/calculate-a-date-with-php
     $bdAsPOSIX = strtotime($birthday);
     $basecon = strtotime('-40 weeks', $bdAsPOSIX);
     $concept = strtotime($offset, $basecon);
-    $perfect = strftime('%m/%d/%Y', $basecon);
     $conception = strftime('%Y/%m/%d', $concept);
 	//end borrowing
 				
@@ -55,11 +47,11 @@
 	$song_id = $track['songid'];
 	$artist = $track['artist'];
 	$title = $track['title'];
-	$songofyear = $track['songofyear'];	
+	if(isset($track['songofyear'])){ $songofyear = $track['songofyear']; }
+    else { $songofyear = FALSE; }
 	$vid = $track['youtube'];		
 	
-	echo '
-	<meta property="og:site_name" content="Porktrack">
+	echo '<meta property="og:site_name" content="Porktrack">
     <meta property="og:url" content="' . $current_url . '".>
     <meta property="og:title" content="Porktrack">
     <meta property="og:image" content="https://i1.ytimg.com/vi/' . $vid . '/hqdefault.jpg">
@@ -100,9 +92,10 @@
 	if($songofyear){
 		echo '<h3>This song was the #1 single for that year, wow!</h3><br>';
 	}
-	echo '<iframe width="640" height="390" src="//www.youtube.com/embed/' . $vid . '" frameborder="0" allowfullscreen></iframe><br><br>';
+	echo '<iframe width="640" height="390" src="//www.youtube.com/embed/' . $vid . '" frameborder="0" allowfullscreen></iframe><br>';
 	?>
 	
+	<a href="mailto:porktrack@gmail.com">report broken video/other issues</a><br>
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<!-- bottom_results -->
 	<ins class="adsbygoogle"
@@ -112,7 +105,6 @@
 	<script>
 	(adsbygoogle = window.adsbygoogle || []).push({});
 	</script>	
-	
 	<?php
 	echo "<br><br>";
 	//Begin sad attempts at virality
@@ -135,7 +127,6 @@
 ?>
 
 	<div>
-	<br>
 		<a href="http://www.porktrack.com/faq.php">FAQ</a> &#8226 
 		<a href="http://www.twitter.com/porktrack">follow @porktrack</a> &#8226 
 		<a href="http://www.twitter.com/literallyelvis">created by</a>
