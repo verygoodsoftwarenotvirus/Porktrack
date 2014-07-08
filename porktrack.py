@@ -22,9 +22,10 @@ class Song:        #handy song object to place in a list of song objects
         self.title = title
         self.vide = video
     def __repr__(self):
-        base = ('("' + self.date + '", "' + self.artist + '", "' 
-					+ self.title + '", "' + self.video + '"),\n')
-        return base
+        return ('("' + self.date   + '", "' 
+                     + self.artist + '", "' 
+                     + self.title  + '", "' 
+                     + self.video  + '"),\n')
 
 newSong = Song("", "", "" ,"")
 
