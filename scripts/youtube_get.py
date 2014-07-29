@@ -1,7 +1,7 @@
 __author__ = "Jeffrey D."
 __maintainer__ = "Jeffrey D."
-__copyright__ = "meh"
-__license__ = "meh"
+__copyright__ = "don't sweat it"
+__license__ = "nah"
 __version__ = "0.4"
 __email__ = "literallyelvis" + "@" + "gmail.com"
 
