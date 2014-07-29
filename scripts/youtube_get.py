@@ -1,7 +1,15 @@
+__author__ = "Jeffrey D."
+__maintainer__ = "Jeffrey D."
+__copyright__ = "meh"
+__license__ = "meh"
+__version__ = "0.4"
+__email__ = "literallyelvis" + "@" + "gmail.com"
+
 from urllib.request import urlopen
 
 
 def retrieveLink(url):
+    """Returns HTML code for a particular url"""
     retrieve = urlopen(url)
     read = retrieve.read()
     html = read.decode('utf-8')
@@ -9,12 +17,13 @@ def retrieveLink(url):
 
 
 def retrieveVideo(query):
+    """Returns the YouTube video ID of the top search result for a given query."""
     query = query.replace('\n', '')
     query = query.replace(" ", "+")
     query = query.replace("&", "and")
 
     video_url = 'https://www.youtube.com/results?search_query=' + query
-    youtube_result = get(video_url)
+    youtube_result = retrieveLink(video_url)
 
     begin = youtube_result.find('<ol id="search-results"') + 23
     begin = youtube_result.find('a href="', begin) + 8
@@ -22,7 +31,7 @@ def retrieveVideo(query):
     begin = youtube_result.find('watch?v=', begin) + 8
 
     video_id = youtube_result[begin:end]
-    if "&amp;list=" in video_id:
+    if "&amp;list=" in video_id: # handles if search returned a YouTube list.
         mark = video_id.find("&amp;list=")
         video_id = video_id[:mark]
     return video_id
