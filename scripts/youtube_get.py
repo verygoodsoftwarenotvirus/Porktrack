@@ -15,8 +15,8 @@ def retrieveLink(url):
     return html
 
 
-def retrieveVideo(query):
-    """Returns the YouTube video ID of the top search result for a given query."""
+def retrieveVideoID(query):
+    """Returns the YouTube video ID of the top search result for a query."""
     query = query.replace('\n', '')
     query = query.replace(" ", "+")
     query = query.replace("&", "and")
@@ -30,7 +30,7 @@ def retrieveVideo(query):
     begin = youtube_result.find('watch?v=', begin) + 8
 
     video_id = youtube_result[begin:end]
-    if "&amp;list=" in video_id: # handles if search returned a YouTube list.
+    if "&amp;list=" in video_id:  # handles when search returns a YT list.
         mark = video_id.find("&amp;list=")
         video_id = video_id[:mark]
     return video_id
