@@ -1,5 +1,4 @@
 __author__ = "Jeffrey D."
-__maintainer__ = "Jeffrey D."
 __copyright__ = "don't sweat it"
 __license__ = "nah"
 __version__ = "0.4"
