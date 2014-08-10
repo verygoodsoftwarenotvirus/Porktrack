@@ -1,5 +1,5 @@
 from html.parser import HTMLParser
-from youtube_get import retrieveLink as get, retrieveVideo as youtube
+from youtube_get import retrieveLink as get, retrieveVideoID as youtube
 
 
 # let's set some limitations
