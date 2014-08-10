@@ -93,9 +93,10 @@
 		echo '<h3>This song was the #1 single for that year, wow!</h3><br>';
 	}
 	echo '<iframe width="640" height="390" src="//www.youtube.com/embed/' . $vid . '" frameborder="0" allowfullscreen></iframe><br>';
-	?>
 	
-	<a href="mailto:porktrack@gmail.com">report broken video/other issues</a><br>
+	
+	echo '<a href="mailto:porktrack@gmail.com?subject=Video Issue&body=Video for ' . $title . ' by ' . $artist  . ' is broken!">report broken video/other issues</a><br>';
+	?>
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<!-- bottom_results -->
 	<ins class="adsbygoogle"
