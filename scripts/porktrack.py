@@ -1,5 +1,7 @@
+from datetime import date
 from html.parser import HTMLParser
-from youtube_get import retrieveLink as get, retrieveVideoID as youtube
+from youtube_get import retrieve_link as get, retrieve_video_id as youtube
+
 
 
 # let's set some limitations
@@ -22,6 +24,7 @@ def getPage(year):
         global url_year
         url = 'http://en.wikipedia.org/wiki/' + \
               'List_of_Billboard_Hot_100_number-one_singles_of_' + str(year)
+        print(url)
         html = get(url)
         url_year = year
 
@@ -83,12 +86,12 @@ class HTMLParser(HTMLParser):
                     prior_line = prior_line.replace("'", "\'")
                     newSong.artist = prior_line[8:]
                     query = newSong.artist + " " + newSong.title
-                    newSong.video = youtube.retrieveVideo(query)
+                    newSong.video = youtube(query)
                     song_list.append(newSong)
 
                 artist = "Artist: "
                 newSong = Song("", "", "", "")
-                month = data[:len(data)-2]
+                month = data[:len(data)-2].strip()
                 month = months[month]
 
                 try:
@@ -125,7 +128,7 @@ class HTMLParser(HTMLParser):
 parser = HTMLParser()
 
 for x in range(2014, 2015):
-        page = get(x)
+        page = getPage(x)
         try:
             parser.feed(page)
         except UnicodeEncodeError:
