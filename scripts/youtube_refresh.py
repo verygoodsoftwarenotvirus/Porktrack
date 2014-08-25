@@ -26,23 +26,19 @@ def retrieve_video_id(query):
         video_id = video_id[:mark]
     return video_id
 
-newtracks = open('newtracks.sql', mode='w')
-
-with open('tracks.sql') as db:
-    for line in db:
-        comma1 = line.find(", '") + 3
-        comma2 = line.find("', '", comma1) + 4
-        comma3 = line.find("', '", comma2) + 4
-        comma4 = line.find("', ", comma3)
-        comma5 = line.find(", '", comma4) + 3
-        comma3 -= 4
-        artist = line[comma2:comma3]
-        comma3 += 4
-        title = line[comma3:comma4]
-        query = artist + " " + title
-        video = retrieve_video_id(query)
-        newline = line[:comma5] + video + "'),\n"
-        newtracks.write(newline)
-        print("Artist: ", artist, "\nTitle: ", title, "\nVideo: ", video, "\n\n")
-
-newtracks.close()
+with open('newtracks.sql', mode='w') as newtracks:
+    with open('tracks.sql') as db:
+        for line in db:
+            comma1 = line.find(", '") + 3
+            comma2 = line.find("', '", comma1) + 4
+            comma3 = line.find("', '", comma2) + 4
+            comma4 = line.find("', ", comma3)
+            comma5 = line.find(", '", comma4) + 3
+            comma3 -= 4
+            artist = line[comma2:comma3]
+            comma3 += 4
+            title = line[comma3:comma4]
+            query = artist + " " + title
+            video = retrieve_video_id(query)
+            newline = line[:comma5] + video + "'),\n"
+            newtracks.write(newline)
