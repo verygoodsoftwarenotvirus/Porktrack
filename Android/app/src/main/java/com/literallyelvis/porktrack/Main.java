@@ -8,10 +8,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -32,29 +32,57 @@ public class Main extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Spinner listSelect = (Spinner) findViewById(R.id.listSelect);
-        Spinner timetype = (Spinner) findViewById(R.id.timeType);
-        Spinner earlate = (Spinner) findViewById(R.id.earlate);
+        final Spinner listSelect = (Spinner) findViewById(R.id.listSelect);
+        Spinner tt = (Spinner) findViewById(R.id.timeType);
+        Spinner el = (Spinner) findViewById(R.id.earlate);
 
         ArrayAdapter<CharSequence> tt_adapter = ArrayAdapter.createFromResource(this,
                 R.array.timetype_array, android.R.layout.simple_spinner_item);
         tt_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        timetype.setAdapter(tt_adapter);
+        tt.setAdapter(tt_adapter);
+        tt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String timetype = (String) adapterView.getItemAtPosition(i);
+            }
+        });
 
         ArrayAdapter<CharSequence> el_adapter = ArrayAdapter.createFromResource(this,
                 R.array.earlate_array, android.R.layout.simple_spinner_item);
         el_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        earlate.setAdapter(el_adapter);
+        el.setAdapter(el_adapter);
+        el.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String earlate = (String) adapterView.getItemAtPosition(i);
+            }
+        });
 
         ArrayAdapter<CharSequence> ls_adapter = ArrayAdapter.createFromResource(this,
                 R.array.list_array, android.R.layout.simple_spinner_item);
         ls_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         listSelect.setAdapter(ls_adapter);
+        listSelect.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    String list = (String) adapterView.getItemAtPosition(i);
+            }
+        });
 
         final Button submit = (Button) findViewById(R.id.submitButton);
         submit.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
 
+                EditText numberOf = (EditText) findViewById(R.id.numberOf);
+                DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
+                CheckBox checkBox = (CheckBox) findViewById(R.id.pecBirthCheck);
+
+                int year = datePicker.getYear();
+                int month = datePicker.getMonth();
+                int day = datePicker.getDayOfMonth();
+
+
+                formURL(list, year, month, day, offset, timetype, earlate);
             }
         });
     }
@@ -81,22 +109,11 @@ public class Main extends Activity {
         }
     }
 
-    public String formURL(){
-        String  track = null,
-                year = null,
-                month = null,
-                day = null,
-                offset = null,
-                timetype = null,
-                earlate = null;
-
-        EditText numberOf = (EditText) findViewById(R.id.numberOf);
-        DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
-        CheckBox checkBox = (CheckBox) findViewById(R.id.pecBirthCheck);
-        Button submitButton = (Button) findViewById(R.id.submitButton);
+    public String formURL(String list, String year, String month, String day,
+                          String offset, String timetype, String earlate){
 
         String url = "http://porktrack.com/mobile.php?" +
-                "list=" + track +
+                "list=" + list +
                 "&year=" + year +
                 "&month=" + month +
                 "&day=" + day +
