@@ -21,10 +21,10 @@ html {
 }
 
 .birthday {	
-	-webkit-appearance: none;  /*Removes default chrome and safari style*/
-	-moz-appearance: none;     /* Removes Default Firefox style*/		
+	-webkit-appearance: none; 
+	-moz-appearance: none;    
 	background: transparent;
-	text-indent: 0.01px;       /* Removes default arrow from firefox*/
+	text-indent: 0.01px;      
 	text-overflow: "";  
 	padding: 5px;
 	height: 2em;
@@ -33,10 +33,10 @@ html {
 }
 
 select {
-	-webkit-appearance: none;  /*Removes default chrome and safari style*/
-	-moz-appearance: none;     /* Removes Default Firefox style*/	
+	-webkit-appearance: none; 
+	-moz-appearance: none;    
 	background: transparent;
-	text-indent: 0.01px;       /* Removes default arrow from firefox*/
+	text-indent: 0.01px;      
 	text-overflow: "";  
 	padding: 5px;
 	height: 2em;
