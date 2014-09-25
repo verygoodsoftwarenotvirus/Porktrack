@@ -26,27 +26,27 @@
     
 	<div class="special">
 		<script type="text/javascript" language="JavaScript">
-		function HidePart(d) { document.getElementById(d).style.display = "none";  }
-		function ShowPart(d) { document.getElementById(d).style.display = "inline"; }
-		function CheckboxChecked(b,d)
-		{  if(b) { ShowPart(d); }
-		   else  { HidePart(d); }	}
-        
-        function populate(list_select, year_select){
-          var currentYear = new Date().getFullYear()
-          var list_select = document.getElementById(list_select);
-          var year_select = document.getElementById(year_select);
-          //var minYear = 1945;
-          year_select.innerHTML = "";
-          if(list_select.value == "track"){ minYear = 1959;
-          } else if(list_select.value == "country") { minYear = 1945;
-          } else if(list_select.value == "latin") { minYear = 1987; }
-          
-          for(var i = minYear; i < currentYear; i++){
-              var newOption = document.createElement("option");
-              newOption.value = i.toString();
-              newOption.innerHTML = i.toString();
-              year_select.options.add(newOption);}}         
+			function HidePart(d) { document.getElementById(d).style.display = "none";  }
+			function ShowPart(d) { document.getElementById(d).style.display = "inline"; }
+			function CheckboxChecked(b,d)
+			{  if(b) { ShowPart(d); }
+			   else  { HidePart(d); }	}
+	        
+	        function populate(list_select, year_select){
+	          var currentYear = new Date().getFullYear()
+	          var list_select = document.getElementById(list_select);
+	          var year_select = document.getElementById(year_select);
+	          //var minYear = 1945;
+	          year_select.innerHTML = "";
+	          if(list_select.value == "track"){ minYear = 1959;
+	          } else if(list_select.value == "country") { minYear = 1945;
+	          } else if(list_select.value == "latin") { minYear = 1987; }
+	          
+	          for(var i = minYear; i < currentYear; i++){
+	              var newOption = document.createElement("option");
+	              newOption.value = i.toString();
+	              newOption.innerHTML = i.toString();
+	              year_select.options.add(newOption);}}         
 		</script>
 		
 		<form method="GET" action="results.php">
