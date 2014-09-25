@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Porktrack</string>
+    <string name="letspork">Let\'s Pork!</string>
+    <string name="action_settings">Settings</string>
+    <string name="peculiar">I had a peculiar birth!</string>
+    <string name="resultsdemo">You were (probably) conceived to $title by $artist!</string>
+    <string name="title_activity_result">Result</string>
+    <string-array name="timetype_array">
+        <item>days</item>
+        <item>weeks</item>
+    </string-array>
+    <string-array name="earlate_array">
+        <item>early</item>
+        <item>late</item>
+    </string-array>
+    <string-array name="list_array">
+        <item>Hot 100</item>
+        <item>Latin</item>
+    </string-array>
+
+</resources>
