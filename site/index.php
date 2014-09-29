@@ -98,7 +98,7 @@
 		<div id="reveal" style="display:none">
 			<p>
 				I was born
-				<input type="number" min="0" value="0" max="365" class="birthday" id="offset">
+				<input type="number" min="0" value="0" max="365" class="birthday" name="offset">
 				<select name="timetype">
 					<option>days</option>
 					<option>weeks</option>
