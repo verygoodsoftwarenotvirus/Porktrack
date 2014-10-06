@@ -52,7 +52,7 @@
 		<form method="GET" action="results.php">
 			<div class="birthday">
 		        Choose a list:
-		        <select id="list" onchange="populate(this.id, 'year');ShowPart('button')">
+		        <select name="list" id="list" onchange="populate(this.id, 'year');ShowPart('button')">
 		            <option value="" selected></option>
 		            <option value="track">Hot 100</option>
 		            <option value="country">Country</option>
