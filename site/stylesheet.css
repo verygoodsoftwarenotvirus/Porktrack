@@ -2,11 +2,7 @@
 	font-family: 'Oswald';
 	color: #4C4349;
     text-align: center;
-	vertical-align:middle
-}
-
-a {
-	color: #4C4349;
+	vertical-align: middle;	
 }
 
 html {
@@ -33,27 +29,17 @@ html {
 }
 
 select {
-	-webkit-appearance: none; 
-	-moz-appearance: none;    
-	background: transparent;
-	text-indent: 0.01px;      
-	text-overflow: "";  
-	padding: 5px;
-	height: 2em;
 	width: 4em;
-	font-size: 1.25em;
-	border-color: #4C4349;
 }
 
-.btn-style{
-	border : solid 1px #ffdef5;
+.button{
+	border : solid 1.5px #ffdef5;
 	border-radius : 3px;
 	-moz-border-radius : 3px;
-	font-size : 20px;
-	color : #4c4349;
+	font-size : 25px;
 	padding : 4px 17px;
 	background-color : #cc75b0;
-
+	top: 2.5em;
 }
 
 .info {
@@ -63,9 +49,4 @@ select {
     margin-right: auto;
 	position:absolute;
 	bottom:0;
-}
-
-span {
-	font-family: sans-serif;
-	color: #A6A1A4;
 }
