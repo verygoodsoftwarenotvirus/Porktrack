@@ -1,6 +1,3 @@
-__author__ = 'Jeffrey D.'
-__version__ = '0.4'
-
 import requests
 
 
@@ -26,9 +23,11 @@ def retrieve_video_id(query):
         video_id = video_id[:mark]
     return video_id
 
-with open('newtracks.sql', mode='w') as newtracks:
-    with open('tracks.sql') as db:
+with open('newcountry.sql', mode='w') as newtracks:
+    with open('country.sql') as db:
         for line in db:
+            if "INSERT INTO" in line:
+                pass
             comma1 = line.find(", '") + 3
             comma2 = line.find("', '", comma1) + 4
             comma3 = line.find("', '", comma2) + 4
