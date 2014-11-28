@@ -13,25 +13,60 @@
 	$con = mysqli_connect($host, $user, $pass, $db) or die ("Error: ". mysqli_error($con));	
 	$current_url = "http://www.porktrack.com" . $_SERVER['REQUEST_URI'];
 	
-	//retrieve user input from previous page
-	$modifier = "+/-";
-	$month = $_GET["month"];
-	$year = $_GET["year"];
-	$day = $_GET["day"];	
+	//retrieve user input adn validate it
 	if(isset($_GET["list"]))
     { $table = $_GET["list"]; }
     else{ $table = "track";}
 
-	$birthday = $year . "-" . $month . "-" . $day; 
+        if($table == ""){
+            $table = "track";
+        }
+
+	$day = (int) $_GET["day"];
+	if( $day > 31){
+		$day = 31;
+	} elseif($day < 1){
+		$day = 1;
+	}
+
+	$month = (int) $_GET["month"];
+	if( $month > 12){
+		$month = 12;
+	} elseif($month < 1){
+		$month = 1;
+	}
+
+	$current_year = (int) date("Y");
+	$year = (int) $_GET["year"];
+	if($year > $current_year){
+		$year = $current_year;
+	} else {
+		switch($table){
+    	case "track":
+    		if($year < 1960){
+    			$year = 1960;
+    		}    		
+    		break;
+    	case "country":
+    		if($year < 1946){
+    			$year = 1946;    			
+    		}
+    		break;
+    	case "latin":
+    		if($year < 1988){
+    			$year = 1988;
+    		}
+    		break;
+    	}
+	}
+	
+	$birthday = $year . 	 "-" . $month . "-" . $day; 
     $offsetnum = $_GET["offset"]; 
 	$offsetsize = $_GET['timetype'];
     $offsettype = $_GET["earlate"];  		
+    $modifier = "+/-";
 	if( $offsettype == "early" ) { $modifier = "-";	 } else { $modifier = "+"; }
     $offset = $modifier . $offsetnum . ' ' . $offsetsize; 
-	
-	//attempts to prevent user tomfoolery:	
-	if (time() < strtotime($birthday))
-	{ $birthday = time(); }
 	
     //shamelessly borrowed from http://stackoverflow.com/questions/7029669/calculate-a-date-with-php
     $bdAsPOSIX = strtotime($birthday);
@@ -55,7 +90,8 @@
     <meta property="og:url" content="' . $current_url . '".>
     <meta property="og:title" content="Porktrack">
     <meta property="og:image" content="https://i1.ytimg.com/vi/' . $vid . '/hqdefault.jpg">
-    <meta property="og:description" content="I was (probably) conceived to ' . $title . ' by ' . $artist . '! What\'s your porktrack?">';	 ?>
+    <meta property="og:description" content="I was (probably) conceived to ' . $title . ' by ' . $artist . '! What\'s your porktrack?">';	 
+?>
 		
 	<head>
 	<title>Porktrack</title>
@@ -97,6 +133,7 @@
 	
 	echo '<a href="mailto:porktrack@gmail.com?subject=Video Issue&body=Video for ' . $title . ' by ' . $artist  . ' is broken!">report broken video/other issues</a><br>';
 	?>
+
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<!-- bottom_results -->
 	<ins class="adsbygoogle"
