@@ -15,11 +15,11 @@
 		$(document).ready(function(){
 			$("#peculiar").click(function(){
 				$("#birthDeets").toggle("slow");
+                $(".button").animate({marginTop: "50px"});
 			});
-
 			$("#data_sets").change(function(){
 				$("#date_entry").animate({height:'show'}, "show");
-				$("#button").animate({height:'show'}, "show");
+				$(".button").animate({height:'show'}, "show");
 			});
 		});		
 		</script>
@@ -29,28 +29,27 @@
 	<div id="logo">
 		<a href="http://porktrack.com/"><img src="http://porktrack.com/images/logo.svg" id="logo"></a>
 	</div>
-
-	<div class="content">
 		<script type="text/javascript" language="JavaScript">
 			function populate(list_select, year_select){
-				var currentYear = new Date().getFullYear()
-				var list_select = document.getElementById(list_select);
-				var year_select = document.getElementById(year_select);
-				year_select.innerHTML = "";
-				if(list_select.value == "track"){ minYear = 1959;
-				} else if(list_select.value == "country") { minYear = 1945;
-				} else if(list_select.value == "latin") { minYear = 1987; }
+				var currentYear = new Date().getFullYear();
+				var list = document.getElementById(list_select);
+				var year = document.getElementById(year_select);
+				year.innerHTML = "";
+				if(list.value == "track"){ minYear = 1959;
+				} else if(list.value == "country") { minYear = 1945;
+				} else if(list.value == "latin") { minYear = 1987; }
 
 				for(var i = minYear; i < currentYear; i++){
 					var newOption = document.createElement("option");
 					newOption.value = i.toString();
 					newOption.innerHTML = i.toString();
-					year_select.options.add(newOption);
+					year.options.add(newOption);
 				}
 			}
 		</script>
 
-		<form method="GET" action="results.php">
+        <div class="content">
+        <form method="GET" action="results.php">
 			<div id="lists">
 				Choose a list:
 				<select class="birthday" name="list" id="data_sets" onchange="populate(this.id, 'year');">
@@ -58,10 +57,10 @@
 					<option value="track">Hot 100</option>
 					<option value="country">Country</option>
 					<option value="latin">Latin</option>
-				</select>	    
+				</select>
 			</div>
 			<div class="birthday" id="date_entry" style="display:none">
-				<br>Enter your birthdate:<br> 
+				<br>Enter your birthdate:<br>
 				<select class="birthday" name="year" id="year"></select>
 				<select class="birthday" name="month">
 					<option value="01">January</option>
@@ -94,9 +93,11 @@
 					<input type="checkbox" value="no" id="peculiar">
 					I had a peculiar birth!
 				</p>
-
+                <div class="submit">
+                    <input type="submit" id='button' class="button" value="Let's Pork!" style="display:none;"/>
+                </div>
 			</div>
-			<div id="birthDeets" style="display:none">
+			<div id="birthDeets" style="display:none; margin-top: 1em;">
 				<br><br><br><br><p>
 				I was born
 				<input type="number" min="0" value="0" max="365" class="birthday" name="offset">
@@ -110,16 +111,12 @@
 				</select>
 				</p>
 			</div>
-	</div>
-
+        </form>
+        </div>
 	<div class="info">
-		<div class="submit">
-			<input type="submit" id='button' class="button" value="Let's Pork!" style="display:none; margin-bottom: 15em;"/>
-		</div>
 		<a href="http://www.porktrack.com/faq.php">FAQ</a> &#8226 
 		<a href="http://www.twitter.com/porktrack">follow @porktrack</a> &#8226 
 		<a href="http://www.twitter.com/literallyelvis">created by</a>
 		<a href="https://github.com/LiterallyElvis/Porktrack">
 		<img style="position: absolute; bottom: 0; right: 0; border: 0;" src="images/forkme.png" alt="Pork me on GitHub" data-canonical-src="images/forkme.png"></a>
 	</div>
-	</form>

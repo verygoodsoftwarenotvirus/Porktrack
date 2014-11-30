@@ -1,5 +1,5 @@
 * {
-	font-family: 'Oswald';
+	font-family: 'Oswald', sans-serif;
 	color: #4C4349;
     text-align: center;
 	vertical-align: middle;	
@@ -16,9 +16,7 @@ html {
     margin-right: auto;
 }
 
-.birthday {	
-	-webkit-appearance: none; 
-	-moz-appearance: none;    
+.birthday {
 	background: transparent;
 	text-indent: 0.01px;      
 	text-overflow: "";  
@@ -33,9 +31,8 @@ select {
 }
 
 .button{
-	border : solid 1.5px #ffdef5;
+	border : solid 2px #ffdef5;
 	border-radius : 3px;
-	-moz-border-radius : 3px;
 	font-size : 25px;
 	padding : 4px 17px;
 	background-color : #cc75b0;
