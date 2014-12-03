@@ -1,0 +1,101 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.literallyelvis.pork.track.MainActivity"
+    android:background="#ffdef5">
+
+    <DatePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/datePicker"
+        android:calendarViewShown="false"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:measureAllChildren="false"
+        android:minDate="01/01/1960"
+        android:spinnersShown="true"
+        android:startYear="1989"
+        android:endYear="2014"
+        android:clickable="false"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/letspork"
+        android:id="@+id/submitButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="retrieveResult"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/peculiar"
+        android:id="@+id/pecBirthCheck"
+        android:layout_below="@+id/datePicker"
+        android:layout_alignLeft="@+id/datePicker"
+        android:layout_alignStart="@+id/datePicker"
+        android:onClick="onCheckboxClicked"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numeric="integer"
+        android:ems="10"
+        android:id="@+id/numberOf"
+        android:layout_below="@+id/pecBirthCheck"
+        android:layout_alignLeft="@+id/pecBirthCheck"
+        android:layout_alignStart="@+id/pecBirthCheck"
+        android:layout_toLeftOf="@+id/submitButton"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/earlate"
+        android:entries='@array/earlate_array'
+        android:layout_toRightOf="@+id/timeType"
+        android:layout_below="@+id/pecBirthCheck"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timeType"
+        android:layout_alignTop="@+id/numberOf"
+        android:layout_toRightOf="@+id/numberOf"
+        android:layout_alignRight="@+id/submitButton"
+        android:layout_alignEnd="@+id/submitButton"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listSelect"
+        android:layout_above="@+id/submitButton"
+        android:layout_marginBottom="70dp"
+        android:layout_alignRight="@+id/submitButton"
+        android:layout_alignEnd="@+id/submitButton"
+        android:layout_toRightOf="@+id/numberOf"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/result"
+        android:layout_above="@+id/submitButton"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/dump"
+        android:layout_below="@+id/submitButton"
+        android:layout_toLeftOf="@+id/submitButton"
+        android:layout_toStartOf="@+id/submitButton"
+        android:visibility="gone" />
+
+</RelativeLayout>
