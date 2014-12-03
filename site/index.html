@@ -3,19 +3,24 @@
 	<link type="text/css" rel="stylesheet" href="stylesheet.css"/>
 	<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 	<head>
-		<title>Porktrack</title>		
+		<title>Porktrack</title>	
+		<meta name="viewport" content="width=device-width, intial-scale=1"	
 		<meta property="og:site_name" content="Porktrack">
 		<meta property="og:url" content="http://www.porktrack.com">
 		<meta property="og:title" content="Porktrack">
 		<meta property="og:image" content="http://www.porktrack.com/images/avatar.png">
 		<meta property="og:description" content="What is your porktrack?">	
 
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script>
 		$(document).ready(function(){
-			$("#peculiar").click(function(){
+			$("#peculiar").click(function(){				
 				$("#birthDeets").toggle("slow");
-                $(".button").animate({marginTop: "50px"});
+				if(this.checked){
+					$(".button").animate({marginTop: "50px"});
+				} else {
+					$(".button").animate({marginTop: "-10px"});
+				}
 			});
 			$("#data_sets").change(function(){
 				$("#date_entry").animate({height:'show'}, "show");
@@ -26,8 +31,8 @@
 	</head>
 <body>
 
-	<div id="logo">
-		<a href="http://porktrack.com/"><img src="http://porktrack.com/images/logo.svg" id="logo"></a>
+	<div class="logo">
+		<a href="http://porktrack.com/"><img src="http://porktrack.com/images/logo.svg" class="logo"></a>
 	</div>
 		<script type="text/javascript" language="JavaScript">
 			function populate(list_select, year_select){
@@ -97,7 +102,7 @@
                     <input type="submit" id='button' class="button" value="Let's Pork!" style="display:none;"/>
                 </div>
 			</div>
-			<div id="birthDeets" style="display:none; margin-top: 1em;">
+			<div id="birthDeets" style="display:none; ">
 				<br><br><br><br><p>
 				I was born
 				<input type="number" min="0" value="0" max="365" class="birthday" name="offset">
@@ -117,7 +122,7 @@
 		<a href="https://play.google.com/store/apps/details?id=com.literallyelvis.pork.track"><img src="http://porktrack.com/images/googleplay.png" width="86px" height="30px"><a><br>
 		<a href="http://www.porktrack.com/faq.php">FAQ</a> &#8226 
 		<a href="http://www.twitter.com/porktrack">follow @porktrack</a> &#8226 
-		<a href="http://www.twitter.com/literallyelvis">created by</a>
+		<a href="http://www.twitter.com/literallyelvis">by @literallyelvis</a>
 		<a href="https://github.com/LiterallyElvis/Porktrack">
-		<img style="position: absolute; bottom: 0; right: 0; border: 0;" src="images/forkme.png" alt="Pork me on GitHub" data-canonical-src="images/forkme.png"></a>
+		<img style="position: absolute; bottom: 0; right: 0; border: 0;" src="images/forkme.png" alt="Pork me on GitHub" class="github" data-canonical-src="images/forkme.png"></a>
 	</div>
