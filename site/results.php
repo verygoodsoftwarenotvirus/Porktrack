@@ -129,7 +129,9 @@
 		echo '<h3>This song was the #1 single for that year, wow!</h3><br>';
 	}
 	echo '<iframe width="640" height="390" src="//www.youtube.com/embed/' . $vid . '" frameborder="0" allowfullscreen></iframe><br>';
-	echo '<a href="mailto:porktrack@gmail.com?subject=Video Issue&body=Video for ' . $title . ' by ' . $artist  . ' is broken! \n ' . $current_url . '">report broken video/other issues</a><br>';
+	$formatted_url = str_replace("&", "+", $current_url);
+
+	echo '<a href="mailto:porktrack@gmail.com?subject=Video%20Issue&body=Video%20for%20' . $title . '%20by%20' . $artist  . '%20is%20broken!%0D%0A' . $formatted_url . '">report broken video/other issues</a><br>';
 	?>
 	<div class="moneymakers">
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
