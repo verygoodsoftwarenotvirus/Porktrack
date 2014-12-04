@@ -129,38 +129,37 @@
 		echo '<h3>This song was the #1 single for that year, wow!</h3><br>';
 	}
 	echo '<iframe width="640" height="390" src="//www.youtube.com/embed/' . $vid . '" frameborder="0" allowfullscreen></iframe><br>';
-	echo '<a href="mailto:porktrack@gmail.com?subject=Video Issue&body=Video for ' . $title . ' by ' . $artist  . ' is broken! \n ' . $current_url . '>report broken video/other issues</a><br>';
+	echo '<a href="mailto:porktrack@gmail.com?subject=Video Issue&body=Video for ' . $title . ' by ' . $artist  . ' is broken! \n ' . $current_url . '">report broken video/other issues</a><br>';
 	?>
-
+	<div class="moneymakers">
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-	<!-- bottom_results -->
+	<!-- Porktrack Responsive -->
 	<ins class="adsbygoogle"
-		style="display:inline-block;width:728px;height:90px"
-		data-ad-client="ca-pub-4269697371888843"
-		data-ad-slot="3176842285"></ins>
+	     style="display:block"
+	     data-ad-client="ca-pub-4269697371888843"
+	     data-ad-slot="2586240680"
+	     data-ad-format="auto"></ins>
 	<script>
 	(adsbygoogle = window.adsbygoogle || []).push({});
-	</script>	
+	</script>
+	</div>
+
 	<?php
-	echo "<br><br>";
 	//Begin sad attempts at virality
 	echo 'Share your porktrack:&nbsp;&nbsp;<div class="fb-like" data-href="' . $current_url . '" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div> &nbsp';
 	
-	echo "<div class=\"g-plus\" data-action=\"share\" data-annotation=\"none\"></div>
-		<script type=\"text/javascript\">
+	echo "<a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"http://porktrack.com/\" data-text=\"I was (probably) conceived to " . $title . " by " . $artist . "! What's your #porktrack? -\">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script><br><br>"; 
+	?>
+	
+	<div class="g-plus" data-action="share" data-annotation="none"></div>
+		<script type="text/javascript">
 		(function() {
 		var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
 		po.src = 'https://apis.google.com/js/platform.js';
 		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 		})();
-		</script>";
-
-	echo "<a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"http://porktrack.com/\" data-text=\"I was (probably) conceived to " . $title . " by " . $artist . "! What's your #porktrack? -\">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script><br><br>";
-	
-	//Close connection
-	mysqli_close($con);	
-?>
+		</script>
 
 	<div>
 		<a href="http://www.porktrack.com/faq.php">FAQ</a> &#8226 
