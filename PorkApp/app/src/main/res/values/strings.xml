@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Porktrack</string>
+    <string name="letspork">Let\'s Pork!</string>
+    <string name="action_settings">Settings</string>
+    <string name="peculiar">I had a peculiar birth!</string>
+    <string name="resultsdemo">You were (probably) conceived to title by artist!</string>
+    <string-array name="timetype_array">
+        <item>days</item>
+        <item>weeks</item>
+    </string-array>
+    <string-array name="earlate_array">
+        <item>early</item>
+        <item>late</item>
+    </string-array>
+    <string-array name="list_array">
+        <item>Hot 100</item>
+        <item>Latin</item>
+        <item>Country</item>
+    </string-array>
+    <string name="banner_ad_unit_id">ca-app-pub-4269697371888843/9668855483</string>
+
+</resources>

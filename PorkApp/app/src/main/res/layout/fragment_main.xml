@@ -1,0 +1,96 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity$PlaceholderFragment"
+    android:background="#FFDEF5">
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listSelect"
+        android:layout_below="@+id/adFragment"
+        android:layout_toRightOf="@+id/numberOf"
+        android:layout_alignRight="@+id/peculiarCheck"
+        android:layout_alignEnd="@+id/peculiarCheck" />
+
+    <DatePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/datePicker"
+        android:layout_below="@+id/listSelect"
+        android:layout_centerHorizontal="true"
+        android:calendarViewShown="false"
+        android:spinnersShown="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/peculiar"
+        android:id="@+id/peculiarCheck"
+        android:layout_below="@+id/datePicker"
+        android:layout_alignLeft="@+id/datePicker"
+        android:layout_alignStart="@+id/datePicker" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="16dp"
+        android:layout_alignRight="@+id/datePicker"
+        android:layout_alignEnd="@+id/datePicker"
+        android:layout_below="@+id/peculiarCheck"
+        android:layout_alignLeft="@+id/peculiarCheck"
+        android:layout_alignStart="@+id/peculiarCheck"
+        android:id="@+id/space" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/numberOf"
+        android:layout_alignBottom="@+id/timeType"
+        android:layout_alignLeft="@+id/space"
+        android:layout_alignStart="@+id/space"
+        android:layout_toLeftOf="@+id/porkButton"
+        android:layout_toStartOf="@+id/porkButton"
+        android:digits="1234567890"
+        android:textAlignment="center" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timeType"
+        android:layout_below="@+id/space"
+        android:layout_toRightOf="@+id/numberOf"
+        android:layout_alignRight="@+id/porkButton"
+        android:layout_alignEnd="@+id/porkButton" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/earlate"
+        android:layout_below="@+id/space"
+        android:layout_toRightOf="@+id/timeType"
+        android:layout_alignRight="@+id/space"
+        android:layout_alignEnd="@+id/space" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/letspork"
+        android:id="@+id/porkButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <fragment
+        android:id="@+id/adFragment"
+        android:name="ru.verygoodsoftwarenotvirus.porktrack.MainActivity$AdFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>
