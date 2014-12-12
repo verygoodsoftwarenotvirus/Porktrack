@@ -1,20 +1,23 @@
 ﻿<html>
+
 	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon"/>
 	<link type="text/css" rel="stylesheet" href="stylesheet.css"/>
 	<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+
 	<head>
-		<title>Porktrack</title>	
-		<meta name="viewport" content="width=device-width, intial-scale=1"	
+		<title>Porktrack</title>
+
+		<meta name="viewport" content="width=device-width, intial-scale=1">
 		<meta property="og:site_name" content="Porktrack">
 		<meta property="og:url" content="http://www.porktrack.com">
 		<meta property="og:title" content="Porktrack">
 		<meta property="og:image" content="http://www.porktrack.com/images/avatar.png">
-		<meta property="og:description" content="What is your porktrack?">	
+		<meta property="og:description" content="What is your porktrack?">
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script>
 		$(document).ready(function(){
-			$("#peculiar").click(function(){				
+			$("#peculiar").click(function(){
 				$("#birthDeets").toggle("slow");
 				if(this.checked){
 					$(".button").animate({marginTop: "50px"});
@@ -26,15 +29,45 @@
 				$("#date_entry").animate({height:'show'}, "show");
 				$(".button").animate({height:'show'}, "show");
 			});
-		});		
+		});
+
+		function getPorktrack(){
+			xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					document.getElementById("content").innerHTML = result;
+				}
+			};
+
+			var track    = document.getElementById("data_sets").value || "track";
+			var year     = document.getElementById("year").value;
+			var month    = document.getElementById("month").value;
+			var day      = document.getElementById("day").value;
+			var offset   = document.getElementById("offset").value;
+			var timetype = document.getElementById("timetype").value;
+			var earlate  = document.getElementById("earlate").value;
+			var peculiar = document.getElementById("peculiar").value;
+
+			var url = "ajax.php?list=" + track + 
+					  "&year="         + year + 
+					  "&month="        + month +
+					  "&day="          + day + 
+					  "&offset="       + offset + 
+					  "&timetype="     + timetype + 
+					  "&earlate="      + earlate;
+
+			xmlhttp.open("GET", url ,true);
+			xmlhttp.send();
+		};
 		</script>
 	</head>
 <body>
-
 	<div class="logo">
 		<a href="http://porktrack.com/"><img src="http://porktrack.com/images/logo.svg" class="logo"></a>
 	</div>
-		<script type="text/javascript" language="JavaScript">
+	<div class="content" id="content">
+		<div id="lists">
+		<script type="text/javascript" language="Javascript">
 			function populate(list_select, year_select){
 				var currentYear = new Date().getFullYear();
 				var list = document.getElementById(list_select);
@@ -50,90 +83,82 @@
 					newOption.innerHTML = i.toString();
 					year.options.add(newOption);
 				}
-			}
+			};
 		</script>
-
-        <div class="content">
-        <form method="GET" action="results.php">
-			<div id="lists">
-				Choose a list:
-				<select class="birthday" name="list" id="data_sets" onchange="populate(this.id, 'year');">
-					<option value="" selected></option>
-					<option value="track">Hot 100</option>
-					<option value="country">Country</option>
-					<option value="latin">Latin</option>
-				</select>
+			Choose a list:
+			<select class="birthday" name="list" id="data_sets" onchange="populate(this.id, 'year');">
+				<option value="" selected></option>
+				<option value="track">Hot 100</option>
+				<option value="country">Country</option>
+				<option value="latin">Latin</option>
+			</select>
+		</div>
+		<div class="birthday" id="date_entry" style="display:none">
+			<br>Enter your birthdate:<br>
+			<select class="birthday" name="year" id="year"></select>
+			<select class="birthday" name="month" id="month">
+				<option value="01">January</option>
+				<option value="02">February</option>
+				<option value="03">March</option>
+				<option value="04">April</option>
+				<option value="05">May</option>
+				<option value="06">June</option>
+				<option value="07">July</option>
+				<option value="08">August</option>
+				<option value="09">September</option>
+				<option value="10">October</option>
+				<option value="11">November</option>
+				<option value="12">December</option>
+			</select>
+			<select class="birthday" name="day" id="day">
+				<option>01</option><option>02</option><option>03</option>
+				<option>04</option><option>05</option><option>06</option>
+				<option>07</option><option>08</option><option>09</option>
+				<option>10</option><option>11</option><option>12</option>
+				<option>13</option><option>14</option><option>15</option>
+				<option>16</option><option>17</option><option>18</option>
+				<option>19</option><option>20</option><option>21</option>
+				<option>22</option><option>23</option><option>24</option>
+				<option>25</option><option>26</option><option>27</option>
+				<option>28</option><option>29</option><option>30</option>
+				<option>31</option>
+			</select><br>
+			<p class="peculiar">
+				<input type="checkbox" value="no" id="peculiar">
+				I had a peculiar birth!
+			</p>
+			<div class="submit" >
+				<input type="submit" id="button" class="button" value="Let's Pork!" style="display:none;" onclick="getPorktrack()"/>
 			</div>
-			<div class="birthday" id="date_entry" style="display:none">
-				<br>Enter your birthdate:<br>
-				<select class="birthday" name="year" id="year"></select>
-				<select class="birthday" name="month">
-					<option value="01">January</option>
-					<option value="02">February</option>
-					<option value="03">March</option>
-					<option value="04">April</option>
-					<option value="05">May</option>
-					<option value="06">June</option>
-					<option value="07">July</option>
-					<option value="08">August</option>
-					<option value="09">September</option>
-					<option value="10">October</option>
-					<option value="11">November</option>
-					<option value="12">December</option>
-				</select>
-				<select class="birthday" name="day">
-					<option>01</option><option>02</option><option>03</option>
-					<option>04</option><option>05</option><option>06</option>
-					<option>07</option><option>08</option><option>09</option>
-					<option>10</option><option>11</option><option>12</option>
-					<option>13</option><option>14</option><option>15</option>
-		 			<option>16</option><option>17</option><option>18</option>
-					<option>19</option><option>20</option><option>21</option>
-					<option>22</option><option>23</option><option>24</option>
-					<option>25</option><option>26</option><option>27</option>
-					<option>28</option><option>29</option><option>30</option>
-					<option>31</option>
-				</select><br>
-				<p class="peculiar">
-					<input type="checkbox" value="no" id="peculiar">
-					I had a peculiar birth!
-				</p>
-                <div class="submit">
-                    <input type="submit" id='button' class="button" value="Let's Pork!" style="display:none;"/>
-                </div>
-			</div>
-			<div id="birthDeets" style="display:none; ">
-				<br><br><br><br><p>
-				I was born
-				<input type="number" min="0" value="0" max="365" class="birthday" name="offset">
-				<select name="timetype" class="birthday">
-					<option>days</option>
-					<option>weeks</option>
-				</select>
-				<select name="earlate" class="birthday">
-					<option>early</option>
-					<option>late</option>
-				</select>
-				</p>
-			</div>
-        </form>
-        </div>
-
+		</div>
+		<div id="birthDeets" style="display:none; ">
+			<br><br><br><br><p>
+			I was born
+			<input type="number" min="0" value="0" max="99" class="birthday" name="offset" id="offset">
+			<select name="timetype" class="birthday" id="timetype">
+				<option>days</option>
+				<option>weeks</option>
+			</select>
+			<select name="earlate" class="birthday" id="earlate">
+				<option>early</option>
+				<option>late</option>
+			</select>
+			</p>
+		</div>
+	</div>
 	<div class="info">
 		<div class="moneymakers" style="max-height: 2em;">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-		<!-- Porktrack Responsive -->
-		<ins class="adsbygoogle"
-		     style="display:block"
-		     data-ad-client="ca-pub-4269697371888843"
-		     data-ad-slot="2586240680"
-		     data-ad-format="auto"></ins>
-		<script>
-		(adsbygoogle = window.adsbygoogle || []).push({});
-		</script>
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+				<!-- Porktrack Responsive -->
+				<ins class="adsbygoogle"
+					 style="display:block"
+					 data-ad-client="ca-pub-4269697371888843"
+					 data-ad-slot="2586240680"
+					 data-ad-format="auto"></ins>
+			<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
 		</div>
-		
-		<a href="https://play.google.com/store/apps/details?id=com.literallyelvis.pork.track"><img src="http://porktrack.com/images/googleplay.png" width="86px" height="30px"><a><br>
 		<a href="http://www.porktrack.com/faq.php">FAQ</a> &#8226 
 		<a href="http://www.twitter.com/porktrack">follow @porktrack</a> &#8226 
 		<a href="http://www.twitter.com/literallyelvis">by @literallyelvis</a>
