@@ -55,7 +55,7 @@
     	}
 	}
 	
-	$birthday = $year . 	 "-" . $month . "-" . $day; 
+	$birthday = $year . "-" . $month . "-" . $day; 
     $offsetnum = $_GET["offset"]; 
 	$offsetsize = $_GET['timetype'];
     $offsettype = $_GET["earlate"];  		
@@ -84,13 +84,15 @@
 	?>
 
 	<div id="fb-root"></div>
-	<script>(function(d, s, id) {
-	var js, fjs = d.getElementsByTagName(s)[0];
-	if (d.getElementById(id)) return;
-	js = d.createElement(s); js.id = id;
-	js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-	fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));</script>
+	<script>
+		(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
 
 	<?php
 	//Begin results		
@@ -105,7 +107,7 @@
 	echo '<a href="mailto:porktrack@gmail.com?subject=Video%20Issue&body=Video%20for%20' . $title . '%20by%20' . $artist  . '%20is%20broken!%0D%0A' . $formatted_url . '">report broken video/other issues</a><br>';
 	
 	//Begin sad attempts at virality
-	echo 'Share your porktrack:&nbsp;&nbsp;<div class="fb-like" data-href="' . $current_url . '" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div> &nbsp';
+	echo 'Share your porktrack:&nbsp;&nbsp;<div class="fb-like" data-href="http://www.porktrack.com" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div> &nbsp';
 	
 	echo "<a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"http://porktrack.com/\" data-text=\"I was (probably) conceived to " . $title . " by " . $artist . "! What's your #porktrack? -\">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script><br><br>"; 
