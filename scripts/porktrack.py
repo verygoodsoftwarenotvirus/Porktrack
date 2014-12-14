@@ -3,7 +3,6 @@ from html.parser import HTMLParser
 from youtube_get import retrieve_link as get, retrieve_video_id as youtube
 
 
-
 # let's set some limitations
 ndchars = ['[', ']', '"', '\n', 'Issue Date', 'Artist(s)', 'Reference']
 months = dict(January='01', February='02', March='03', April='04', May='05',
