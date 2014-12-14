@@ -95,6 +95,18 @@
 		
 	<head>
 	<title>Porktrack</title>
+	<script>
+		function reportBrokenVideo(song_id){
+			xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					document.getElementById("content").innerHTML = result;
+				}
+			}
+			xmlhttp.open("GET", "broken.php?id=" + song_id ,true);
+			xmlhttp.send();
+		};
+	</script>
 	</head>
 	
 	<div id="logo">
