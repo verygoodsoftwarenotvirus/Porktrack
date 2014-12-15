@@ -12,6 +12,10 @@
 		$db = $settings['db'];
 		$con = mysqli_connect($host, $user, $pass, $db) or die ("Error: ". mysqli_error($con));	
 		$current_url = "http://www.porktrack.com" . $_SERVER['REQUEST_URI'];
+		$ip = $_SERVER['REMOTE_ADDR'];
+		if($ip == "127.0.0.1"){
+			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		}
 		
 		//retrieve user input adn validate it
 		if(isset($_GET["list"]))
@@ -60,7 +64,7 @@
 	    	}
 		}
 		
-		$birthday = $year . 	 "-" . $month . "-" . $day; 
+		$birthday = $year . "-" . $month . "-" . $day; 
 	    $offsetnum = $_GET["offset"]; 
 		$offsetsize = $_GET['timetype'];
 	    $offsettype = $_GET["earlate"];  		
@@ -92,27 +96,25 @@
 	    <meta property="og:image" content="https://i1.ytimg.com/vi/' . $vid . '/hqdefault.jpg">
 	    <meta property="og:description" content="I was (probably) conceived to ' . $title . ' by ' . $artist . '! What\'s your porktrack?">';	 
 	?>
-		
 	<head>
-	<title>Porktrack</title>
-	<script>
-		function reportBrokenVideo(song_id){
-			xmlhttp = new XMLHttpRequest();
-			xmlhttp.onreadystatechange = function() {
-				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-					document.getElementById("content").innerHTML = result;
+		<title>Porktrack</title>
+		<script>
+			function reportBrokenVideo(song_id, ip){
+				xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+						document.getElementById("report").innerHTML = "issue reported!";
+					}
 				}
-			}
-			xmlhttp.open("GET", "broken.php?id=" + song_id ,true);
-			xmlhttp.send();
-		};
-	</script>
-	</head>
-	
+				var url = "broken.php?id=" + song_id + "&ip=" + ip;
+				xmlhttp.open("GET", url, true);
+				xmlhttp.send();
+			};
+		</script>
+	</head>	
 	<div id="logo">
 		<a href="http://porktrack.com/"><img src="images/logo.svg" id="logo"></a>
-	</div>
-	
+	</div>	
 	<body>
 		<script>
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -123,7 +125,6 @@
 			ga('create', 'UA-51264238-1', 'porktrack.com');
 			ga('send', 'pageview');
 		</script>
-
 		<div id="fb-root"></div>
 		<script>(function(d, s, id) {
 			var js, fjs = d.getElementsByTagName(s)[0];
@@ -133,7 +134,6 @@
 			fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'facebook-jssdk'));
 		</script>
-
 	<?php
 		//Begin results		
 		echo '<h2>You were (probably) conceived to "' . $title . '" by ' . $artist . '!</h2>';	
@@ -142,16 +142,13 @@
 			echo '<h3>This song was the #1 single for that year, wow!</h3><br>';
 		}
 		echo '<iframe width="640" height="390" src="//www.youtube.com/embed/' . $vid . '" frameborder="0" allowfullscreen></iframe><br>';
-		$formatted_url = str_replace("&", "+", $current_url);
+		echo '<p id="report" onclick="reportBrokenVideo(' . $song_id . ', \'' . $ip . '\')">report video as broken</p>';
 
-		echo '<a href="mailto:porktrack@gmail.com?subject=Video%20Issue&body=Video%20for%20' . $title . '%20by%20' . $artist  . '%20is%20broken!%0D%0A' . $formatted_url . '">report broken video/other issues</a><br>';
 		//Begin sad attempts at virality
 		echo 'Share your porktrack:&nbsp;&nbsp;<div class="fb-like" data-href="' . $current_url . '" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div> &nbsp';
-		
 		echo "<a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"http://porktrack.com/\" data-text=\"I was (probably) conceived to " . $title . " by " . $artist . "! What's your #porktrack? -\">Tweet</a>
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script><br><br>"; 
-	?>
-		
+	?>		
 		<div class="g-plus" data-action="share" data-annotation="none"></div>
 			<script type="text/javascript">
 				(function() {
@@ -160,7 +157,6 @@
 				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 				})();
 			</script>
-
 		<div class="footer">
 			<div class="moneymakers" style="max-height: 2em;">
 		        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
