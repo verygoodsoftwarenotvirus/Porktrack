@@ -142,7 +142,7 @@
 			echo '<h3>This song was the #1 single for that year, wow!</h3><br>';
 		}
 		echo '<iframe width="640" height="390" src="//www.youtube.com/embed/' . $vid . '" frameborder="0" allowfullscreen></iframe><br>';
-		echo '<p id="report" onclick="reportBrokenVideo(' . $song_id . ', \'' . $ip . '\')">report video as broken</p>';
+		echo '<p id="report" onclick="reportBrokenVideo(' . $song_id . ', \'' . $ip . '\')"><u>report video as broken</u></p>';
 
 		//Begin sad attempts at virality
 		echo 'Share your porktrack:&nbsp;&nbsp;<div class="fb-like" data-href="' . $current_url . '" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div> &nbsp';
