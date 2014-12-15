@@ -1,6 +1,7 @@
 from datetime import date
 from html.parser import HTMLParser
-from youtube_get import retrieve_link as get, retrieve_video_id as youtube
+from collections import namedtuple
+import requests
 
 
 # let's set some limitations
@@ -10,43 +11,40 @@ months = dict(January='01', February='02', March='03', April='04', May='05',
               November='11', December='12')
 
 currentyear = date.today().year  # establishes current year for later use
-nfyears = [1965, 1989, 2000, 2001, currentyear]  # some years are weird.
 other_words = [' and ', ' with ']
 url_year, previous, prior_line = "", "", ""
 step = 0
-song_list = []
+song_list = list()
 artist = "Artist: "
 
 
 def getPage(year):
         # let's get some data
         global url_year
-        url = 'http://en.wikipedia.org/wiki/' + \
-              'List_of_Billboard_Hot_100_number-one_singles_of_' + str(year)
-        print(url)
-        html = get(url)
+        url = 'http://en.wikipedia.org/wiki/List_of_Billboard_Hot_100_number-one_singles_of_' + str(year)
+        html = requests.get(url).text
         url_year = year
-
         # let's manipulate some data
-        bad = year in nfyears
-        beg = html.find('wikitable"') + 11
-        if not bad:
-                beg = html.find('wikitable">', beg) + 11
-
-        beg = html.find('</tr>', beg) + 5
+        beg = html.find('Artist(s)</th>') + 14
         end = html.find('</table>', beg)
         source = html[beg:end]
         return source
 
 
-def isdate(string):
-    if any(thing in string for thing in months):  # I <3 this line so much.
-        if len(string) <= 10:  # Checks for songs with months in their name.
-            return True
-        else:
-            return False
-    else:
-        return False
+def youtube(query):
+    """Returns the YouTube video ID of the top search result for a query."""
+    query = query.replace('&', 'and').replace(" ", "+")
+    video_url = 'https://www.youtube.com/results?search_query={0}'.format(query)
+    youtube_result = requests.get(video_url).text
+    begin = youtube_result.find('<ol id="search-results"') + 23
+    begin = youtube_result.find('a href="', begin) + 8
+    end = youtube_result.find('" class="', begin)
+    begin = youtube_result.find('watch?v=', begin) + 8
+    video_id = youtube_result[begin:end]
+    if '&amp;list=' in video_id:  # handles when search returns a YT list.
+        mark = video_id.find('&amp;list=')
+        video_id = video_id[:mark]
+    return video_id
 
 
 class Song:        # handy song object to place in a list of song objects
@@ -63,9 +61,7 @@ class Song:        # handy song object to place in a list of song objects
                 self.title  + '", "' +
                 self.video  + '"),\n')
 
-
 newSong = Song("", "", "", "")
-
 
 # modified from the HTMLParser page:
 # https://docs.python.org/2/library/htmlparser.html
@@ -73,11 +69,9 @@ class HTMLParser(HTMLParser):
     def handle_data(self, data):
         if data in ndchars:
             data = None
-
         else:
-            isdate = any(thing in data for thing in months)
             global step, prior_line, artist, previous, song_list, newSong
-            if isdate:
+            if any(thing in data for thing in months):
                 previous = "date"
                 step = 1
 
@@ -100,7 +94,6 @@ class HTMLParser(HTMLParser):
 
                 if day < 10:
                     day = "0" + str(day)
-
                 date = str(url_year) + " " + month + " " + str(day)
                 date = date.replace(" ", "-")
                 date = date.replace("--", "-")
@@ -109,7 +102,6 @@ class HTMLParser(HTMLParser):
             else:
                 if str(data).isnumeric():
                     data = None
-
                 elif step == 1:                   # definitely a song
                     if previous == "date":
                         newSong.date = prior_line[1:]
@@ -117,16 +109,13 @@ class HTMLParser(HTMLParser):
                     prior_line = prior_line.replace("'", "\'")
                     newSong.title = prior_line
                     step = 2
-
                 elif step == 2:                   # definitely an artist
                     artist += data
                     prior_line = artist
 
-
-# instantiate the parser and feed it some HTML
 parser = HTMLParser()
-
-for x in range(2014, 2015):
+# instantiate the parser and feed it some HTML
+for x in range(1965, 1974):
         page = getPage(x)
         try:
             parser.feed(page)
@@ -136,8 +125,6 @@ for x in range(2014, 2015):
 song_list.append(newSong)
 song_list[len(song_list) - 1].artist = prior_line[8:]
 
-# Opening SQL instruction:
-# INSERT INTO `table` (`date`, `artist`, `track`, `youtube`) VALUES
 try:
     print(*song_list, sep='')
 except AttributeError:
