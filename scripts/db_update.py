@@ -1,13 +1,14 @@
 import pymysql as db
 import configparser
 import time
+import requests
 
 config = configparser.ConfigParser()
-config.read(db_info.ini)
+config.read("db_info.ini")
 user = config['MYSQL']['user']
 passwd = config['MYSQL']['password']
 
-connection = db.connect(host='localhost', port=3306, user, passwd, db='pork')
+connection = db.connect(host='localhost', port=3306, user=user, passwd=passwd, db='pork')
 cursor = connection.cursor()
 
 one_minute = 60  # in seconds
@@ -44,7 +45,7 @@ def update_row(cursor, video_id, song_id):
     cursor.execute(query)
 
 while True:
-    for x in range(0, get_table_length(cursor, "test"):
+    for x in range(0, get_table_length(cursor, "test")):
         artist, title, video_id = retrieve_row(cursor, x)
         youtube_query = "{}{}{}".format(artist, " ", title)
         new_video_id = retrieve_video_id(youtube_query)
