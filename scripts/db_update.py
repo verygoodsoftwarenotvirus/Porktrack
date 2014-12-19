@@ -14,21 +14,23 @@ cursor = connection.cursor()
 one_minute = 60  # in seconds
 
 def get_table_length(cursor, table_name):
-    query = "SELECT COUNT(*) FROM `{}`".format(table_name)
-    cursor.execute(query)
+    """Returns the length of the table in question."""
+    count_query = "SELECT COUNT(*) FROM `{}`".format(table_name)
+    cursor.execute(count_query)
     return cursor.fetchone()[0]
 
 
 def retrieve_row(cursor, song_id):
-    query = "SELECT `artist`,`title`,`youtube` FROM `test` WHERE songid = {}".format(song_id)
-    cursor.execute(query)
+    """Returns a particular song's data from the database"""
+    row_query = "SELECT `artist`,`title`,`youtube` FROM `test` WHERE songid = {}".format(song_id)
+    cursor.execute(row_query)
     return cursor.fetchone()
 
 
 def retrieve_video_id(query):
     """Returns the YouTube video ID of the top search result for a query."""
-    query = query.strip().replace('&', 'and').replace(" ", "+").replace("''", "'")
-    video_url = 'https://www.youtube.com/results?search_query={0}'.format(query)
+    video_query = query.strip().replace('&', 'and').replace(" ", "+").replace("''", "'")
+    video_url = 'https://www.youtube.com/results?search_query={0}'.format(video_query)
     youtube_result = requests.get(video_url).text
     begin = youtube_result.find('<ol class="item-section"') + 24
     begin = youtube_result.find('a href="/watch?v=', begin) + 17
@@ -41,8 +43,9 @@ def retrieve_video_id(query):
 
 
 def update_row(cursor, video_id, song_id):
+    """Updates the value of the YouTube ID for a particular song"""
     update_query = "UPDATE `test` SET `youtube`= \"{}\" WHERE `songid` = {}".format(video_id, song_id)
-    cursor.execute(query)
+    cursor.execute(update_query)
 
 while True:
     for x in range(0, get_table_length(cursor, "test")):
