@@ -52,8 +52,3 @@ while True:
         if new_video_id != video_id:
             update_row(cursor, new_video_id, x)
         time.sleep(one_minute)  # so YouTube doesn't get mad
-
-
-
-
-
