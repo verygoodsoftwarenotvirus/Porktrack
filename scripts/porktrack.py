@@ -32,7 +32,7 @@ def youtube(query):
     if '&amp;list=' in video_id:  # handles when search returns a YT list.
         mark = video_id.find('&amp;list=')
         video_id = video_id[:mark]
-    time.sleep(0.5)  # to stop YouTube from getting mad
+    time.sleep(0.5)  # to keep YouTube from getting mad
     return video_id
 
 
