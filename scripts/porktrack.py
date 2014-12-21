@@ -1,131 +1,55 @@
-from datetime import date
-from html.parser import HTMLParser
-from collections import namedtuple
+from datetime import date, timedelta
+import html.parser
+import time
 import requests
 
+song_list = [("date", "title", "artist", "video_id")]
+parse = html.parser.HTMLParser()
 
-# let's set some limitations
-ndchars = ['[', ']', '"', '\n', 'Issue Date', 'Artist(s)', 'Reference']
-months = dict(January='01', February='02', March='03', April='04', May='05',
-              June='06', July='07', August='08', September='09', October='10',
-              November='11', December='12')
-
-currentyear = date.today().year  # establishes current year for later use
-other_words = [' and ', ' with ']
-url_year, previous, prior_line = "", "", ""
-step = 0
-song_list = list()
-artist = "Artist: "
-
-
-def getPage(year):
-        # let's get some data
-        global url_year
-        url = 'http://en.wikipedia.org/wiki/List_of_Billboard_Hot_100_number-one_singles_of_' + str(year)
+def getData(date):
+        url = 'http://www.billboard.com/charts/hot-100/' + str(date)
         html = requests.get(url).text
-        url_year = year
-        # let's manipulate some data
-        beg = html.find('Artist(s)</th>') + 14
-        end = html.find('</table>', beg)
-        source = html[beg:end]
-        return source
+        # I could use HTML Parser, but I only need two elements.
+        beg = html.find('<article id="row-1"')
+        title_start = html.find('<h2>', beg) + 4
+        title_end = html.find('</h2>', title_start)
+        title = parse.unescape(html[title_start:title_end].strip())
+        artist_start = html.find('trackaction="Artist Name">', beg) + 26
+        artist_end = html.find('</a>', artist_start)
+        artist = parse.unescape(html[artist_start:artist_end].strip())
+        return title, artist
 
 
 def youtube(query):
     """Returns the YouTube video ID of the top search result for a query."""
     query = query.replace('&', 'and').replace(" ", "+")
-    video_url = 'https://www.youtube.com/results?search_query={0}'.format(query)
+    video_url = 'https://www.youtube.com/results?search_query={}'.format(query)
     youtube_result = requests.get(video_url).text
-    begin = youtube_result.find('<ol id="search-results"') + 23
-    begin = youtube_result.find('a href="', begin) + 8
-    end = youtube_result.find('" class="', begin)
-    begin = youtube_result.find('watch?v=', begin) + 8
+    begin = youtube_result.find('<ol class="item-section"') + 24
+    begin = youtube_result.find('a href="/watch?v=', begin) + 17
+    end = youtube_result.find('"', begin)
     video_id = youtube_result[begin:end]
     if '&amp;list=' in video_id:  # handles when search returns a YT list.
         mark = video_id.find('&amp;list=')
         video_id = video_id[:mark]
+    time.sleep(0.5)  # to stop YouTube from getting mad
     return video_id
 
 
-class Song:        # handy song object to place in a list of song objects
-    def __init__(self, date, artist, title, video):
-        self.date = date
-        self.artist = artist
-        self.title = title
-        self.video = video
-
-    def __repr__(self):
-        return ('("' +
-                self.date   + '", "' +
-                self.artist + '", "' +
-                self.title  + '", "' +
-                self.video  + '"),\n')
-
-newSong = Song("", "", "", "")
-
-# modified from the HTMLParser page:
-# https://docs.python.org/2/library/htmlparser.html
-class HTMLParser(HTMLParser):
-    def handle_data(self, data):
-        if data in ndchars:
-            data = None
+def main():
+    today = date.today()
+    start_date = date(1958, 8, 9)
+    weeks_retrieved = 0
+    while start_date < today:
+        list_date = start_date + timedelta(weeks=weeks_retrieved)
+        title, artist = getData(list_date.isoformat())
+        if title == song_list[-1][1] and artist == song_list[-1][2]:
+            pass
         else:
-            global step, prior_line, artist, previous, song_list, newSong
-            if any(thing in data for thing in months):
-                previous = "date"
-                step = 1
+            video_id = youtube("{0}{1}{2}".format(artist, " ", title))
+            results = (list_date.isoformat(), title, artist, video_id)
+            song_list.append(results)
+        weeks_retrieved += 1
 
-                if "Artist: " in prior_line:
-                    prior_line = prior_line.replace("'", "\'")
-                    newSong.artist = prior_line[8:]
-                    query = newSong.artist + " " + newSong.title
-                    newSong.video = youtube(query)
-                    song_list.append(newSong)
-
-                artist = "Artist: "
-                newSong = Song("", "", "", "")
-                month = data[:len(data)-2].strip()
-                month = months[month]
-
-                try:
-                    day = int(data[len(data)-2:])
-                except ValueError:  # Sometimes data goes bonkers.
-                    print("Data: " + data + '\n')
-
-                if day < 10:
-                    day = "0" + str(day)
-                date = str(url_year) + " " + month + " " + str(day)
-                date = date.replace(" ", "-")
-                date = date.replace("--", "-")
-                prior_line = '\n' + date          # final date
-
-            else:
-                if str(data).isnumeric():
-                    data = None
-                elif step == 1:                   # definitely a song
-                    if previous == "date":
-                        newSong.date = prior_line[1:]
-                    prior_line = data             # final song
-                    prior_line = prior_line.replace("'", "\'")
-                    newSong.title = prior_line
-                    step = 2
-                elif step == 2:                   # definitely an artist
-                    artist += data
-                    prior_line = artist
-
-parser = HTMLParser()
-# instantiate the parser and feed it some HTML
-for x in range(1965, 1974):
-        page = getPage(x)
-        try:
-            parser.feed(page)
-        except UnicodeEncodeError:
-            print(x)
-
-song_list.append(newSong)
-song_list[len(song_list) - 1].artist = prior_line[8:]
-
-try:
-    print(*song_list, sep='')
-except AttributeError:
-    None      # necessary because final Song object won't have a video.
+main()
+print(song_list)
