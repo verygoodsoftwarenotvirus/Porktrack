@@ -1,134 +1,91 @@
 ﻿<html>
-	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon"/>
-	<link type="text/css" rel="stylesheet" href="stylesheet.css"/>
-	<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
-	<head>
-		<title>Porktrack</title>	
-
-		<meta name="viewport" content="width=device-width, initial-scale=1">	
-		<meta property="og:site_name" content="Porktrack">
-		<meta property="og:url" content="http://www.porktrack.com">
-		<meta property="og:title" content="Porktrack">
-		<meta property="og:image" content="http://www.porktrack.com/images/avatar.png">
-		<meta property="og:description" content="What is your porktrack?">	
-
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		<script type="text/javascript">
-		$(document).ready(function(){
-			$("#peculiar").click(function(){				
-				$("#birthDeets").toggle("slow");
-				if(this.checked){
-					$(".button").animate({marginTop: "10px"});
-				} else {
-					$(".button").animate({marginTop: "-10px"});
-				}
-			});
-
-			$("#data_sets").change(function(){
-				$("#date_entry").animate({height:'show'}, "show");
-				$(".button").animate({height:'show'}, "show");
-			});
-		});
-
-		function populate(list_select, year_select){
-			var currentYear = new Date().getFullYear();
-			var list = document.getElementById(list_select);
-			var year = document.getElementById(year_select);
-			year.innerHTML = "";
-			if(list.value == "track"){ minYear = 1959;
-			} else if(list.value == "country") { minYear = 1945;
-			} else if(list.value == "latin") { minYear = 1987; }
-
-			for(var i = minYear; i < currentYear; i++){
-				var newOption = document.createElement("option");
-				newOption.innerHTML = i.toString();
-				year.options.add(newOption);
-			}
-		};
-
-		function daysPopulate(){
-			var days = document.getElementById("days");
-			for(var i = 1; i < 32; i++){
-				var newDay = document.createElement("option");
-				newDay.innerHTML = i.toString();
-				days.options.add(newDay);
-			}
-		};
-		</script>
-	</head>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon"/>
+    <link type="text/css" rel="stylesheet" href="stylesheet.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <head>
+        <title>Porktrack</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta property="og:site_name" content="Porktrack">
+        <meta property="og:url" content="http://www.porktrack.com">
+        <meta property="og:title" content="Porktrack">
+        <meta property="og:image" content="http://www.porktrack.com/images/avatar.png">
+        <meta property="og:description" content="What is your porktrack?">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="sitefunctions.js"></script>
+    </head>
 <body onload="daysPopulate();">
-	<div class="logo">
-		<a href="http://porktrack.com/"><img src="http://porktrack.com/images/logo.svg" class="logo"></a>
-	</div>
-        <div class="content">
-	        <form method="GET" action="results.php">
-				<div id="lists">
-					Choose a list:
-					<select class="birthday" name="list" id="data_sets" onchange="populate(this.id, 'year');">
-					<!-- daysPopulate('days');"> -->
-						<option value="" selected></option>
-						<option value="track">Hot 100</option>
-						<option value="country">Country</option>
-						<option value="latin">Latin</option>
-					</select>
-				</div>
-				<div class="birthday" id="date_entry" style="display:none">
-					<p>Enter your birthdate:</p>
-					<select class="birthday" name="month">
-						<option value="01">January</option>
-						<option value="02">February</option>
-						<option value="03">March</option>
-						<option value="04">April</option>
-						<option value="05">May</option>
-						<option value="06">June</option>
-						<option value="07">July</option>
-						<option value="08">August</option>
-						<option value="09">September</option>
-						<option value="10">October</option>
-						<option value="11">November</option>
-						<option value="12">December</option>
-					</select>					
-					<select class="birthday" name="day" id="days"></select>
-					<select class="birthday" name="year" id="year"></select>
-					<p class="checkBox">
-						<input type="checkbox" value="no" id="peculiar">
-						I had a peculiar birth!
-					</p>					
-					<div id="birthDeets" class="peculiar" style="display:none;">
-						<p>	I was born
-						<input type="number" min="0" value="0" max="365" class="birthday" name="offset">
-						<select name="timetype" class="birthday">
-							<option>days</option>
-							<option>weeks</option>
-						</select>
-						<select name="earlate" class="birthday">
-							<option>early</option>
-							<option>late</option>
-						</select>
-						</p>
-					</div>
-	                <div class="submit">
-	                    <input type="submit" id='button' class="button" value="Let's Pork!" style="display:none;"/>
-	                </div>
-				</div>
-	        </form>
+        <div class="logo">
+                <a href="http://porktrack.com/"><img src="http://porktrack.com/images/logo.svg" class="logo"></a>
         </div>
-	<div class="footer">
-		<div class="moneymakers" style="max-height: 2em;">
-	        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-			<!-- Porktrack Responsive -->
-			<ins class="adsbygoogle"
-			     style="display:block"
-			     data-ad-client="ca-pub-4269697371888843"
-			     data-ad-slot="2586240680"
-			     data-ad-format="auto"></ins>
-			<script>
-			(adsbygoogle = window.adsbygoogle || []).push({});
-			</script>
-		</div>
-		<a href="http://www.porktrack.com/faq.php">FAQ</a> &#8226 
-		<a href="http://www.twitter.com/porktrack">follow @porktrack</a> &#8226 
-		<a href="http://www.twitter.com/literallyelvis">by @literallyelvis</a>
-		<a href="https://github.com/LiterallyElvis/Porktrack">
-		<img style="position: absolute; bottom: 0; right: 0; border: 0;" src="images/forkme.png" alt="Pork me on GitHub" class="github" data-canonical-src="images/forkme.png"></a>
-	</div>
+        <div class="content">
+                <form method="GET" action="results.php">
+                <div id="lists">
+                        Choose a list:
+                        <select class="birthday" name="list" id="data_sets" onchange="populate(this.id, 'year');">
+                                <option value="" selected></option>
+                                <option value="track">Hot 100</option>
+                                <option value="country">Country</option>
+                                <option value="latin">Latin</option>
+                            </select>
+                </div>
+                <div class="birthday" id="date_entry" style="display:none">
+                    <p>Enter your birthdate:</p>
+                    <select class="birthday" name="month">
+                        <option value="01">January</option>
+                        <option value="02">February</option>
+                        <option value="03">March</option>
+                        <option value="04">April</option>
+                        <option value="05">May</option>
+                        <option value="06">June</option>
+                        <option value="07">July</option>
+                        <option value="08">August</option>
+                        <option value="09">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <select class="birthday" name="day" id="days"></select>
+                    <select class="birthday" name="year" id="year"></select>
+                        <p class="checkBox">
+                            <input type="checkbox" value="no" id="peculiar">
+                            I had a peculiar birth!
+                        </p>
+                    <div id="birthDeets" class="peculiar" style="display:none;">
+                        <p>I was born
+                            <input type="number" min="0" value="0" max="365" class="birthday" name="offset">
+                            <select name="timetype" class="birthday">
+                                <option>days</option>
+                                <option>weeks</option>
+                            </select>
+                            <select name="earlate" class="birthday">
+                                <option>early</option>
+                                <option>late</option>
+                            </select>
+                        </p>
+                    </div>
+                    <div class="submit">
+                        <input type="submit" id='button' class="button" value="Let's Pork!" style="display:none;"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    <div class="footer">
+        <div class="moneymakers" style="max-height: 2em;">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- Porktrack Responsive -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-4269697371888843"
+                 data-ad-slot="2586240680"
+                 data-ad-format="auto"></ins>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        <a href="http://www.porktrack.com/faq.php">FAQ</a> &#8226
+        <a href="http://www.twitter.com/porktrack">follow @porktrack</a> &#8226
+        <a href="http://www.twitter.com/literallyelvis">by @literallyelvis</a>
+        <a href="https://github.com/LiterallyElvis/Porktrack">
+        <img style="position: absolute; bottom: 0; right: 0; border: 0;" src="images/forkme.png"
+        alt="Pork me on GitHub" class="github" data-canonical-src="images/forkme.png"></a>
+    </div>
