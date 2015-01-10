@@ -2,7 +2,7 @@
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
     <link type="text/css" rel="stylesheet" href="css/stylesheet.css"/>
     <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php
         // Open connection
         $settings = parse_ini_file('../connect.ini');
