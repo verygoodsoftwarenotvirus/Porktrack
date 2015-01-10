@@ -14,61 +14,61 @@
         <script src="sitefunctions.js"></script>
     </head>
 <body onload="daysPopulate();">
-        <div class="logo">
-                <a href="http://porktrack.com/"><img src="http://porktrack.com/images/logo.svg" class="logo"></a>
-        </div>
-        <div class="content">
-                <form method="GET" action="results.php">
-                <div id="lists">
-                        Choose a list:
-                        <select class="birthday" name="list" id="data_sets" onchange="populate(this.id, 'year');">
-                                <option value="" selected></option>
-                                <option value="track">Hot 100</option>
-                                <option value="country">Country</option>
-                                <option value="latin">Latin</option>
-                            </select>
-                </div>
-                <div class="birthday" id="date_entry" style="display:none">
-                    <p>Enter your birthdate:</p>
-                    <select class="birthday" name="month">
-                        <option value="01">January</option>
-                        <option value="02">February</option>
-                        <option value="03">March</option>
-                        <option value="04">April</option>
-                        <option value="05">May</option>
-                        <option value="06">June</option>
-                        <option value="07">July</option>
-                        <option value="08">August</option>
-                        <option value="09">September</option>
-                        <option value="10">October</option>
-                        <option value="11">November</option>
-                        <option value="12">December</option>
+    <div class="logo">
+            <a href="http://porktrack.com/"><img src="http://porktrack.com/images/logo.svg" class="logo"></a>
+    </div>
+    <div class="content">
+        <form method="GET" action="results.php">
+            <div id="lists">
+                Choose a list:
+                <select class="birthday" name="list" id="data_sets" onchange="populate(this.id, 'year');">
+                    <option value="" selected></option>
+                    <option value="track">Hot 100</option>
+                    <option value="country">Country</option>
+                    <option value="latin">Latin</option>
+                </select>
+            </div>
+            <div class="birthday" id="date_entry" style="display:none">
+                <p>Enter your birthdate:</p>
+                <select class="birthday" name="month">
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+                <select class="birthday" name="day" id="days"></select>
+                <select class="birthday" name="year" id="year"></select>
+                    <p class="checkBox">
+                        <input type="checkbox" value="no" id="peculiar">
+                        I had a peculiar birth!
+                    </p>
+                <div id="birthDeets" class="peculiar" style="display:none;">
+                    <p>I was born
+                        <input type="number" min="0" value="0" max="365" class="birthday" name="offset">
+                        <select name="timetype" class="birthday">
+                            <option>days</option>
+                            <option>weeks</option>
                     </select>
-                    <select class="birthday" name="day" id="days"></select>
-                    <select class="birthday" name="year" id="year"></select>
-                        <p class="checkBox">
-                            <input type="checkbox" value="no" id="peculiar">
-                            I had a peculiar birth!
-                        </p>
-                    <div id="birthDeets" class="peculiar" style="display:none;">
-                        <p>I was born
-                            <input type="number" min="0" value="0" max="365" class="birthday" name="offset">
-                            <select name="timetype" class="birthday">
-                                <option>days</option>
-                                <option>weeks</option>
-                            </select>
-                            <select name="earlate" class="birthday">
-                                <option>early</option>
-                                <option>late</option>
-                            </select>
-                        </p>
-                    </div>
-                    <div class="submit">
-                        <input type="submit" id='button' class="button" value="Let's Pork!" style="display:none;"/>
-                    </div>
+                        <select name="earlate" class="birthday">
+                            <option>early</option>
+                            <option>late</option>
+                        </select>
+                    </p>
                 </div>
-            </form>
-        </div>
+                <div class="submit">
+                    <input type="submit" id='button' class="button" value="Let's Pork!" style="display:none;"/>
+                </div>
+            </div>
+        </form>
+    </div>
     <div class="footer">
         <div class="moneymakers" style="max-height: 2em;">
             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
