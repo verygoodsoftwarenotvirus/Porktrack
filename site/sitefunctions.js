@@ -32,7 +32,7 @@
       } else if(list.value == "country") { minYear = 1945;
       } else if(list.value == "latin") { minYear = 1987; }
 
-      for(var i = minYear; i < currentYear; i++){
+      for(var i = minYear; i <= currentYear; i++){
         var newOption = document.createElement("option");
         newOption.innerHTML = i.toString();
         year.options.add(newOption);
@@ -41,7 +41,7 @@
 
     function daysPopulate(){
       var days = document.getElementById("days");
-      for(var i = 1; i < 32; i++){
+      for(var i = 1; i <= 31; i++){
         var newDay = document.createElement("option");
         newDay.innerHTML = i.toString();
         days.options.add(newDay);
