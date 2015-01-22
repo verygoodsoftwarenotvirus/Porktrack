@@ -1,16 +1,11 @@
     $(document).ready(function(){
       $("#peculiar").click(function(){
         $("#birthDeets").toggle("slow");
-        if(this.checked){
-          $(".button").animate({marginTop: "10px"});
-        } else {
-          $(".button").animate({marginTop: "-10px"});
-        }
       });
 
       $("#data_sets").change(function(){
         $("#date_entry").animate({height:'show'}, "show");
-        $(".button").animate({height:'show'}, "show");
+        $("#button").animate({height:'show'}, "show");
       });
     });
 

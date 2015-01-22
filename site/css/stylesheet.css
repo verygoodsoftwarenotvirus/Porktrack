@@ -1,148 +1,95 @@
+@import url('http://fonts.googleapis.com/css?family=Oswald');
+
 * {
 	font-family: 'Oswald', sans-serif;
 	color: #4C4349;
-    text-align: center;
-	vertical-align: middle;	
+	text-align: center;
+	vertical-align: middle;
 }
 
 html {
 	background-color: #FFDEF5;
-}
-
-.footer {
-	text-align: center;
-	width: 99%;
-    margin-left: auto;
-    margin-right: auto;
-	position:absolute;
-	bottom:0;
-}
-
-.birthday {
-	background: transparent;
-	text-indent: 0.01px;      
-	text-overflow: "";  
-	border-color: #4C4349;
-}
-
-.button{
-	border : solid 2px #ffdef5;
-	border-radius : 3px;
-	padding : 4px 17px;
-	background-color : #cc75b0;
+	font-size: .75em;
 }
 
 .logo{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 90vw;
+}
+
+select, input {
+	height: 2em;
+	font-size: 1em;
+	background: transparent;
+	border: 1.5px solid #4C4349;
+}
+
+p{
+	margin-bottom: .5em;
+	margin-top: .5em;
+}
+
+.button{
+	border: none;
+	background-color : #cc75b0;
+	margin-top: 1em;
+}
+
+.moneymakers{
+	max-height: 1.5em;
+	margin-bottom: 1em;
 }
 
 .github{
 	max-width: 10%;
 }
 
-.moneymakers{
-	margin-bottom: 1em;
+.footer {
+	text-align: center;
+	width: 99%;
+	margin-left: auto;
+	margin-right: auto;
+	position:absolute;
+	bottom:0;
 }
 
 @media screen and (max-device-width: 400px) {
-	.logo {
-		max-width: 20em;
-	}
-
-	.birthday {
-		height: 2em;
+	html{
 		font-size: 1em;
-	}
-
-	select {
-		width: 5em;
-		height: 1em;
 	}
 }
 
-@media screen and (max-device-width: 790px) and (min-device-width: 401px) {
-	html{ 
-		font-size: 1em;
+@media screen and (max-device-width: 800px) and (min-device-width: 401px) {
+	html{
+		font-size: .75em;
 	}
-
-	.logo {
-		max-width: 30em;
-	}
-
-	.birthday {
-		height: 1.5em;
-	}
-
-	.footer{
-		font-size: .5em;
-	}
-
-	select {		
-		width: 6em;
-	}
-
-	.button{
-		border : solid 5px #ffdef5;
-		border-radius : 4px;
-	}	
 }
 
-@media screen and (max-device-width: 1080px) and (min-device-width: 791px) {
-	html{ 
-		font-size: 1.5em;
+@media screen and (max-device-width: 1080px) and (min-device-width: 801px) {
+	html{
+		font-size: 1.25em;
 	}
 
-	.logo {
-		max-width: 40em;
-	}
-
-	.birthday {
-		height: 2em;
-		font-size: 1em;
-	}
-
-	select {		
-		border : solid 1.5px #ffdef5;
-		width: 6em;
-		font-size: 1em;
-		height: 1.5em;
-		margin: .5em;
+	p{
+		margin-bottom: .25em;
+		margin-top: .25em;
 	}
 
 	.button{
-		border : solid 10px #ffdef5;
-		border-radius : 5px;
-		padding : 5px 25px;
-		margin-top: 4em;
-	}	
+		margin-top: .5em;
+		padding : 5px;
+	}
 }
 
 @media screen and (min-device-width: 1081px) {
-	html{ 
-		font-size: 1.75em;
-	}
-
-	.logo {
-		max-width: 60em;
-	}
-
-	.birthday {
-		height: 2em;
-		font-size: 1em;
-	}
-
-	select {		
-		border : solid 1.5px #ffdef5;
-		width: 8em;
-		font-size: 2em;
-		height: 3em;
+	html{
+		font-size: 1.5em;
 	}
 
 	.button{
 		font-size: 1em;
-		height: 3em;
-		width: 6em;
-	}	
+		padding: 10px;
+	}
 }
