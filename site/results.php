@@ -91,7 +91,7 @@
         $vid = $track['youtube'];
 
         echo '<meta property="og:site_name" content="Porktrack">
-        <meta property="og:url" content="' . $current_url . '".>
+        <meta property="og:url" content="' . $current_url . '">
         <meta property="og:title" content="Porktrack">
         <meta property="og:image" content="https://i1.ytimg.com/vi/' . $vid . '/hqdefault.jpg">
         <meta property="og:description" content="I was (probably) conceived to ' . $title . ' by ' . $artist . '! What\'s your porktrack?">';
@@ -112,10 +112,17 @@
             };
         </script>
     </head>
-    <div id="logo">
-        <a href="http://porktrack.com/"><img src="images/logo.svg" id="logo"></a>
-    </div>
     <body>
+      <div id="fb-root"></div>
+      <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=429036220578125&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+
+      <a href="http://porktrack.com/"><img src="images/logo.svg" class="logo"></a>
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -125,38 +132,30 @@
             ga('create', 'UA-51264238-1', 'porktrack.com');
             ga('send', 'pageview');
         </script>
-        <div id="fb-root"></div>
-        <script>(function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-            fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-        </script>
     <?php
         //Begin results
-        echo '<h2>You were (probably) conceived to "' . $title . '" by ' . $artist . '!</h2>';
+        echo '<p>You were (probably) conceived to "' . $title . '" by ' . $artist . '!</p>';
 
         if($songofyear){
-            echo '<h3>This song was the #1 single for that year, wow!</h3><br>';
+            echo '<p><h4>This song was the #1 single for that year, wow!</h4></p>';
         }
-        echo '<iframe width="640" height="390" src="//www.youtube.com/embed/' . $vid . '" frameborder="0" allowfullscreen></iframe><br>';
+        echo '<iframe class="youtube" src="//www.youtube.com/embed/' . $vid . '" frameborder="0" allowfullscreen></iframe><br>';
         echo '<p id="report" onclick="reportBrokenVideo(' . $song_id . ', \'' . $ip . '\')"><u>report video as broken</u></p>';
-
-        //Begin sad attempts at virality
-        echo 'Share your porktrack:&nbsp;&nbsp;<div class="fb-like" data-href="' . $current_url . '" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div> &nbsp';
-        echo "<a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"http://porktrack.com/\" data-text=\"I was (probably) conceived to " . $title . " by " . $artist . "! What's your #porktrack? -\">Tweet</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script><br><br>";
-    ?>
-        <div class="g-plus" data-action="share" data-annotation="none"></div>
-            <script type="text/javascript">
-                (function() {
-                var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-                po.src = 'https://apis.google.com/js/platform.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-                })();
-            </script>
+        echo '<div>
+                  <div class="fb-like" data-href="http://www.porktrack.com" data-layout="button_count" data-action="recommend" data-show-faces="false" data-share="true"></div>
+                  <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://porktrack.com/" data-text="I was (probably) conceived to ' . $title . ' by ' . $artist . '! What\'s your #porktrack?">Tweet</a>
+             </div>';
+        ?>
+    <script>
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+        if(!d.getElementById(id)){
+            js=d.createElement(s);
+            js.id=id;
+            js.src=p+'://platform.twitter.com/widgets.js';
+            fjs.parentNode.insertBefore(js,fjs);
+            }
+        }(document, 'script', 'twitter-wjs');
+    </script>
         <div class="footer">
             <div class="moneymakers" style="max-height: 2em;">
                 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
