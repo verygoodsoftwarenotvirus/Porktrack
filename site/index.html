@@ -1,6 +1,5 @@
 ﻿<html>
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon"/>
-    <link type="text/css" rel="stylesheet" href="css/stylesheet.css"/>
     <head>
         <title>Porktrack</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,19 +8,23 @@
         <meta property="og:title" content="Porktrack">
         <meta property="og:image" content="http://www.porktrack.com/images/avatar.png">
         <meta property="og:description" content="What is your porktrack?">
+        <style>
+        *{font-family:"Oswald",sans-serif;color:#4C4349;text-align:center;vertical-align:middle}html{background-color:#FFDEF5;font-size:0.75em}@media screen and (max-device-width: 400px){html{font-size:1em}}@media screen and (max-device-width: 800px) and (min-device-width: 401px){html{font-size:0.75em}}@media screen and (max-device-width: 1080px) and (min-device-width: 801px){html{font-size:1.25em}}@media screen and (min-device-width: 1081px){html{font-size:1.5em}}.logo{display:block;margin:1.5em auto;width:60vw}select,input{height:2em;font-size:1em;background:transparent;border:1.5px solid #4C4349}p{margin-bottom:0.5em;margin-top:0.5em}@media screen and (max-device-width: 1080px) and (min-device-width: 801px){p{margin-bottom:0.25em;margin-top:0.25em}}.button{border:none;background-color:#CC75B0;margin-top:1em}@media screen and (max-device-width: 1080px) and (min-device-width: 801px){.button{margin-top:0.5em;padding:5px}}@media screen and (min-device-width: 1081px){.button{font-size:1em;padding:10px}}#report{font-size:0.25em;margin-top:0px}.youtube{width:640px;height:390px}.moneymakers{margin-bottom:1em;max-width:95%;max-height:1.5em}.github{max-width:10%}.footer{text-align:center;width:99%;font-size:0.5em;margin-left:auto;margin-right:auto;position:absolute;bottom:0}
+        </style>
     </head>
 <body onload="daysPopulate();">
-    <a href="http://porktrack.com/"><img src="http://porktrack.com/images/logo.svg" class="logo"></a>
+    <a href="http://porktrack.com/"><img class="logo" src="http://porktrack.com/images/logo.svg"></a>
     <div>
         <form method="GET" action="results.php">
             <div id="lists">
                 <p> Choose a list:
-                <select name="list" id="data_sets" onchange="populate(this.id, 'years');">
-                    <option value="" selected></option>
-                    <option value="track">Hot 100</option>
-                    <option value="country">Country</option>
-                    <option value="latin">Latin</option>
-                </select> </p>
+                    <select name="list" id="data_sets" onchange="populate(this.id, 'years');">
+                        <option value="" selected></option>
+                        <option value="track">Hot 100</option>
+                        <option value="country">Country</option>
+                        <option value="latin">Latin</option>
+                    </select>
+                </p>
             </div>
             <div id="date_entry" style="display:none">
                 <p>Enter your birthdate:</p>
@@ -77,12 +80,11 @@
             (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
         </div>
-
-        <a href="http://www.twitter.com/porktrack">follow @porktrack</a> &#8226
-        <a href="http://www.twitter.com/literallyelvis">by @literallyelvis</a>  &#8226
-        <a href="https://github.com/LiterallyElvis/Porktrack"> Github
+        <a href="http://www.twitter.com/literallyelvis">by @literallyelvis</a>   &#8226
+        <a href="https://github.com/LiterallyElvis/Porktrack"> github
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="sitefunctions.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 </body>
 </html>
